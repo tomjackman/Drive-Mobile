@@ -1,0 +1,38 @@
+<ion-modal-view>
+  <ion-content>
+
+    <div class="list card">
+      <div class="item item-divider item-balanced icon ion-model-s"> Car Details</div>
+       <div class="item item-body">
+       <div align="center"><img src="img/{{manufacturer}}.png"></div>
+        <div class="list">
+          <label class="item item-input">
+            <input type="text" ng-model="manufacturer" placeholder="Manufacturer">
+          </label>
+          <label class="item item-input">
+            <input type="text" ng-model="model" placeholder="Model">
+          </label>
+          <label class="item item-input">
+            <input type="text" ng-model="year" placeholder="Year">
+          </label>
+          <label class="item item-input">
+            <input type="text" ng-model="engine_size" placeholder="Engine Size"/>
+          </label>
+          <label class="item item-input">
+            <input type="text" ng-model="fuel_type" placeholder="Fuel"/>
+          </label>
+
+          <div class="button-bar">
+           <div class="button button-assertive button-clear button-block icon ion-ios-close-outline" ng-click="close()"> Close</div>
+          <div class="button button-balanced button-clear button-block icon ion-ios-checkmark-outline" ng-click="add(manufacturer, model, year, engine_size, fuel_type)"> Add</div>
+          </div>
+
+        </div>
+  </div>
+  
+    </div>
+
+    
+
+  </ion-content>
+</ion-modal-view>

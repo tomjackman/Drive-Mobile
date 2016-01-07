@@ -1,0 +1,29 @@
+<ion-view view-title="Dashboard" cache-view="false">
+  <ion-content>
+
+<a href="#/app/vehicles" class="button button-balanced button-full button-clear icon ion-refresh"> Switch Vehicle</a>
+    <ion-item class="item-thumbnail-left">
+      <img src="img/{{vehicle.car_manufacturer}}.png">
+      <h2>{{vehicle.car_manufacturer}} {{vehicle.car_model}}</h2>
+      <p>{{vehicle.car_year}}</p>
+      <p>{{vehicle.car_engine_size}}L {{vehicle.car_fuel_type}}</p> 
+    </ion-item> 
+
+
+    <div class="button button-balanced button-full button-outline" ng-click="connectToBluetooth()"> Connect To Bluetooth</div>
+
+
+
+    <div class="button button-balanced button-full button-outline" ng-click="selectProtocol()"> Select Protocol</div>
+
+    <div class="button button-balanced button-full button-outline" ng-click="rpm()"> Get RPM</div> 
+
+<div class="button button-balanced button-full button-outline" ng-click="bluetoothRead()"> Bluetooth Read</div> 
+
+
+    <ion-item ng-repeat="point in log">
+       {{point.id}}
+    </ion-item>
+
+    </ion-content>
+</ion-view>

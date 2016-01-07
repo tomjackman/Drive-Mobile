@@ -1,0 +1,50 @@
+<ion-modal-view>
+  <ion-content>
+
+  <div class="button button-positive button-full button-clear">The Open Car Network Setup</div>
+
+<div class="list card">
+      <div class="item item-divider item-positive">Choose Your OBD-II Bluetooth Device</div>
+       <div class="item item-body">
+      <p>Please ensure that you have  <b>already paired</b> with the device using a passcode via your system settings.</p>
+        <div>
+                <ion-item ng-repeat="device in devices" ng-click="connectToDevice(device.address)">
+                    <h2>{{device.name}}</h2>
+                    <p>{{device.address}}</p>
+                </ion-item>
+        </div>
+        <div class="button button-positive button-block button-clear icon icon ion-ios-search" ng-click="listDevices()">  {{search}}</div>
+        </div>
+      </div>
+
+      ADD FIRST CAR TO BE IMPLEMENTED HERE
+
+  <div class="list card">
+      <div class="item item-divider item-positive icon ion-person"> User Details</div>
+       <div class="item item-body">
+        <div class="list">
+         <label class="item item-input">
+            <input type="text" ng-model="birthYear" placeholder="Year Born">
+        </label>
+        <label class="item item-input">
+            <input type="text" ng-model="gender" placeholder="Your Gender">
+        </label>
+        <label class="item item-input icon">
+            <input type="text" ng-model="country" placeholder="Your Country">
+        </label>
+      </div>
+      <div class="button button-positive button-clear button-full icon ion-android-done" ng-click="saveDetails(birthYear, gender, country)"> Complete Setup</div>
+      </div>
+    </div>
+
+      <div class="dark" align="center"><p> © Car Logos and Car Company Logos Worldwide </p></div>
+  
+
+
+
+
+
+    
+
+  </ion-content>
+</ion-modal-view>
