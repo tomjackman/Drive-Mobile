@@ -7,6 +7,7 @@
     <span></span>
   </div>
 </div>
+<div align="center" class="balanced">{{status}}</div>
 </div>
 
 <div ng-if="show === true">
@@ -14,8 +15,7 @@
       <img src="img/{{vehicle.car_manufacturer}}.png">
       <h2 class="balanced">{{vehicle.car_manufacturer}} {{vehicle.car_model}}</h2>
       <p>{{vehicle.car_year}}, {{vehicle.car_engine_size}}L {{vehicle.car_fuel_type}}</p>
-      </br>
-      <h3 class="balanced icon ion-ios-cloud-outline"> {{vehicle.id}}</h3>
+      <button class="button button-small button-energized icon ion-ios-cloud" style="border: 1px solid; border-radius: 10px;">  {{vehicle.id}}</button>
     </ion-item>
 </div>
 

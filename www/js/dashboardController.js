@@ -2,7 +2,9 @@ angular.module('starter')
 
 .controller('dashboardController', function($scope, BluetoothService, $cordovaToast, $cordovaBluetoothSerial, $timeout, $interval) {
 
-
+$scope.status = "Tap to Record";
+$scope.recording = false;
+$scope.sensorData = [];
 
 $scope.checkDisplay = function()
 {
@@ -16,8 +18,6 @@ $scope.checkDisplay = function()
       $scope.show = true;
     }
   }
-
-
 
   $scope.showActiveVehicle = function()
   {
@@ -55,25 +55,43 @@ $scope.checkDisplay = function()
 
   $scope.recordData = function()
   {
+    if($scope.recording === false)
+    {
+      $scope.recording = true;
+      $scope.status = "Recording";
 
-    $cordovaToast.show('Recording Started', 'long', 'center');
+      $cordovaToast.show('Recording Started', 'long', 'center');
 
-  	$scope.bluetoothWrite("010C\r");
-  	$timeout(function()
-  	{
-  	 		$interval(function() {
-  	 			$scope.bluetoothWrite("010C\r");
-  	 			$scope.bluetoothRead();
-  	 		}, 1000);
-  	 	}
-  	,10000);
+      // Read Buffer every 100ms
+
+      $interval(function() {
+               $scope.bluetoothRead();
+            }, 100);
+
+      // Write to OBD Device
+
+      $scope.bluetoothWrite("010C\r");
+      $timeout(function()
+        {
+            $interval(function() {
+              $scope.bluetoothWrite("010C\r");
+            }, 1000);
+          }
+        ,10000);
+    }
+    else
+    {
+        localStorage.setItem('journeyData', JSON.stringify($scope.sensorData));
+        $cordovaToast.show('Recording Stopped', 'long', 'center');
+        $scope.recording = false;
+        $scope.status = "Tap to Record";
+    }
   }
 
 
   $scope.bluetoothWrite = function(data)
   {
         $cordovaBluetoothSerial.write(data);
-
   }
 
   $scope.bluetoothRead = function()
@@ -82,12 +100,8 @@ $scope.checkDisplay = function()
           function(data) {
           	if(data.charAt(0) === '4')
           	{
-			         var point = {id: data}
-        	     var journeyData = localStorage.getItem('journeyData');
-  			       journeyData = JSON.parse(journeyData);
-
-  			     journeyData.push(point);
-        	   localStorage.setItem('journeyData', JSON.stringify(journeyData));
+			       var point = {id: data};
+  			     $scope.sensorData.push(point);
           	}
           },
           function() {
