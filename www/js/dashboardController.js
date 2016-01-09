@@ -58,14 +58,15 @@ $scope.checkDisplay = function()
     if($scope.recording === false)
     {
       $scope.recording = true;
-      $scope.status = "Recording";
+      $scope.status = "Recording...";
 
       $cordovaToast.show('Recording Started', 'long', 'center');
 
       // Read Buffer every 100ms
 
-      $interval(function() {
+      $scope.readLoop = $interval(function() {
                $scope.bluetoothRead();
+               console.log("Read Loop Interval");
             }, 100);
 
       // Write to OBD Device
@@ -73,15 +74,20 @@ $scope.checkDisplay = function()
       $scope.bluetoothWrite("010C\r");
       $timeout(function()
         {
-            $interval(function() {
+            $scope.queryLoop = $interval(function() {
               $scope.bluetoothWrite("010C\r");
+              console.log("Query Loop Interval");
             }, 1000);
           }
         ,10000);
     }
     else
     {
-        localStorage.setItem('journeyData', JSON.stringify($scope.sensorData));
+        $interval.cancel($scope.queryLoop);
+        $interval.cancel($scope.readLoop);
+
+        localStorage.setItem('journeyData', JSON.stringify($scope.sensorData)); // store the data in localstorage
+        $scope.sensorData = []; // New array for new recording session
         $cordovaToast.show('Recording Stopped', 'long', 'center');
         $scope.recording = false;
         $scope.status = "Tap to Record";
