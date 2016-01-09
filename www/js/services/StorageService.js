@@ -34,15 +34,15 @@ angular.module('starter')
         
         vehicles.push(newVehicle);
         localStorage.setItem('vehicleList', JSON.stringify(vehicles));
+        localStorage.setItem('active_vehicle', generateId);
 
       },
 
       setupComplete: function(){
         localStorage.setItem('setup_complete', 'true');
-        journeyData = [];
-        localStorage.setItem('journeyData', JSON.stringify(journeyData));
-        vehicleList = [];
-        localStorage.setItem('vehicleList', JSON.stringify(vehicleList));
+        window.location.href = '#/app/dashboard';
+        window.location.href = '#/app/vehicles';
+        window.location.href = '#/app/dashboard';
       },
 
   };

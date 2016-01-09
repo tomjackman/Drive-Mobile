@@ -17,6 +17,30 @@
         </div>
       </div>
 
+ <div class="list card">
+      <div class="item item-divider item-balanced icon ion-person"> Vehicle Details</div>
+       <div class="item item-body">
+        <div class="list">
+ <label class="item item-input">
+            <input type="text" ng-model="manufacturer" placeholder="Manufacturer">
+          </label>
+          <label class="item item-input">
+            <input type="text" ng-model="model" placeholder="Model">
+          </label>
+          <label class="item item-input">
+            <input type="text" ng-model="year" placeholder="Year">
+          </label>
+          <label class="item item-input">
+            <input type="text" ng-model="engine_size" placeholder="Engine Size"/>
+          </label>
+          <label class="item item-input">
+            <input type="text" ng-model="fuel_type" placeholder="Fuel"/>
+          </label>
+          </div>
+    </div>
+    </div>
+    </div>
+
   <div class="list card">
       <div class="item item-divider item-balanced icon ion-person"> User Details</div>
        <div class="item item-body">
@@ -31,7 +55,7 @@
             <input type="text" ng-model="country" placeholder="Your Country">
         </label>
       </div>
-      <div class="button button-balanced button-clear button-full icon ion-android-done" ng-click="saveDetails(birthYear, gender, country)"> Complete Setup</div>
+      <div class="button button-balanced button-clear button-full icon ion-android-done" ng-click="saveDetails(birthYear, gender, country, manufacturer, model, year, engine_size, fuel_type)"> Complete Setup</div>
       </div>
     </div>
 

@@ -22,7 +22,6 @@ $scope.search = "Search Devices";
 
   });
 
-
 $scope.listDevices = function()
 {
   $scope.search = "Searching...";
@@ -42,21 +41,19 @@ $scope.listDevices = function()
           );
 }
 
-
 $scope.connectToDevice = function(mac_address)
 {
   BluetoothService.connectToDevice(mac_address);
 }
 
 
-$scope.saveDetails = function(birthYear, gender, country)
+$scope.saveDetails = function(birthYear, gender, country, manufacturer, model, year, engine_size, fuel_type)
 {
   StorageService.saveSetupDetails(birthYear, gender, country);
+  StorageService.addVehicle(manufacturer, model, year, engine_size, fuel_type);
   StorageService.setupComplete();
 
-  window.location.href = '#/app/dashboard';
   $scope.modal.hide();
-
 }
 
 })

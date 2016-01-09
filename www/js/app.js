@@ -22,6 +22,14 @@ var starter = angular.module('starter', ['ionic','ngCordova'])
       BluetoothService.connectToDevice(localStorage.getItem('mac_address'));
     }
 
+    if(localStorage.getItem('setup_complete') === null)
+    {
+      journeyData = [];
+      localStorage.setItem('journeyData', JSON.stringify(journeyData));
+      vehicleList = [];
+      localStorage.setItem('vehicleList', JSON.stringify(vehicleList));
+    }
+
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
