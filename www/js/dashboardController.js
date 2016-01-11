@@ -35,11 +35,6 @@ $scope.checkDisplay = function()
 
     $scope.checkDisplay();
 
-  $scope.connectToBluetooth = function()
-  {
-  	BluetoothService.connectToDevice(localStorage.getItem('mac_address'));
-  }
-
 // CONNECT TO OBD / SEARCHING PHASE
 // When connection to OBD Device is made. Select protocols and query all sensors immediately.
 // THis means that when the user starts recording the data, the recording will start straight
@@ -47,11 +42,14 @@ $scope.checkDisplay = function()
 
   $scope.recordData = function()
   {
+
+    BluetoothService.connectToDevice(localStorage.getItem('mac_address'));
+
     if($scope.recording === false)
     {
       $scope.recording = true;
       $scope.status = "Recording.. Tap to Stop.";
-      $cordovaToast.show('Recording Starting in 10 Seconds.', 'long', 'center');
+      $cordovaToast.show('Recording Starting in 10 Seconds.', 'short', 'center');
 
       // ELM327 Setup / Initilisation
 
@@ -61,6 +59,10 @@ $scope.checkDisplay = function()
       $scope.bluetoothWrite("ATL0\r");    // Remove linefeeds from responses
 
       // Write to OBD Device - Initial Search Phase
+
+      // Diagnostics trouble codes
+
+      $scope.bluetoothWrite("03\r"); // Request trouble codes
 
       // engine sensors
 
@@ -112,6 +114,11 @@ $scope.checkDisplay = function()
 
       $timeout(function()
         {
+            // Query loop for DTC's
+
+            $scope.exhaustSystemSensorLoop = $interval(function() {
+               $scope.bluetoothWrite("03\r"); // Request trouble codes
+            }, 60000);
 
             // Query Loop for Engine related sensors
 
@@ -173,13 +180,13 @@ $scope.checkDisplay = function()
         $interval.cancel($scope.engineSensorLoop);
         $interval.cancel($scope.temperatureSensorLoop);
         $interval.cancel($scope.throttlePedalSensorLoop);
-        $interval.cancel($scope.throttlePedalSensorLoop);
+        $interval.cancel($scope.exhaustSystemSensorLoop);
         $interval.cancel($scope.intakeFuelSensorLoop);
         $interval.cancel($scope.readLoop);
 
         localStorage.setItem('journeyData', JSON.stringify($scope.sensorData)); // store the data in localstorage
         $scope.sensorData = []; // New array for new recording session
-        $cordovaToast.show('Recording Stopped', 'long', 'center');
+        $cordovaToast.show('Recording Stopped', 'short', 'center');
         $scope.recording = false;
         $scope.status = "Tap to Record";
     }
