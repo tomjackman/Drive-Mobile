@@ -1,19 +1,24 @@
-<ion-view view-title="Dashboard">
+<ion-view view-title="">
   <ion-content>
 
 <div class="item item-light" style="background: linear-gradient(#607D8B, #72D1FF, #fff); border: 0px">
+<div align="center" class="light icon ion-bluetooth"> Connected</div>
 <div class="wrapper" ng-click="recordData()">
   <div class="inner">
     <span></span>
   </div>
 </div>
-<div align="center" class="balanced">{{status}}</div>
+
+<div align="center">
+<span class="balanced icon ion-power"> {{status}}</span>
+</div>
+
 </div>
 
 <div ng-if="show === true">
     <ion-item class="item-thumbnail-left">
       <img src="img/{{vehicle.car_manufacturer}}.png">
-      <h2 class="balanced">{{vehicle.car_manufacturer}} {{vehicle.car_model}}</h2>
+      <h2 class="balanced icon ion-model-s"> {{vehicle.car_manufacturer}} {{vehicle.car_model}}</h2>
       <p>{{vehicle.car_year}}, {{vehicle.car_engine_size}}L {{vehicle.car_fuel_type}}</p>
       <button class="button button-small button-energized icon ion-ios-cloud" style="border: 1px solid; border-radius: 10px;">  {{vehicle.id}}</button>
     </ion-item>
@@ -24,12 +29,6 @@
     <div class="card">
 
     <div class="button button-balanced button-full button-outline" ng-click="connectToBluetooth()"> Connect To Bluetooth</div>
-
-
-
-    <div class="button button-balanced button-full button-outline" ng-click="selectProtocol()"> Select Protocol</div>
-
-<div class="button button-balanced button-full" ng-click="bluetoothRead()"> Bluetooth Read</div>
 
 </div>
 
