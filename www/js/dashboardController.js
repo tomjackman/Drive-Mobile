@@ -137,6 +137,34 @@ $scope.checkDisplay = function()
               $scope.bluetoothWrite("0146\r"); // Ambient Air Temperature
               $scope.bluetoothWrite("015C\r"); // Engine Oil Temperature
             }, 10000);
+
+          // Query Loop for Throttle / pedal sensors
+
+            $scope.throttlePedalSensorLoop = $interval(function() {
+              $scope.bluetoothWrite("0111\r"); // Throttle position
+              $scope.bluetoothWrite("0145\r"); // Relative throttle position
+              $scope.bluetoothWrite("014C\r"); // Commanded throttle actuator
+              $scope.bluetoothWrite("015A\r"); // Relative accelerator pedal position
+            }, 3000);
+
+            // Exhaust system
+
+            $scope.exhaustSystemSensorLoop = $interval(function() {
+               $scope.bluetoothWrite("0114\r"); // First lambda sensor
+               $scope.bluetoothWrite("0115\r"); // Second lambda sensor
+
+            }, 500);
+
+            // Intake / fuel system sensors
+
+            $scope.intakeFuelSensorLoop = $interval(function() {
+                $scope.bluetoothWrite("010A\r"); // Fuel pressure
+                $scope.bluetoothWrite("015D\r"); // Fuel Injection Timing
+                $scope.bluetoothWrite("015E\r"); // Engine Fuel Rate
+                $scope.bluetoothWrite("0133\r"); // Barometric pressure
+                $scope.bluetoothWrite("010B\r"); // Intake manifold absolute pressure
+                $scope.bluetoothWrite("0110\r"); // MAF air flow rate
+            }, 1000);
           }
         ,10000);
     }
@@ -144,6 +172,9 @@ $scope.checkDisplay = function()
     {
         $interval.cancel($scope.engineSensorLoop);
         $interval.cancel($scope.temperatureSensorLoop);
+        $interval.cancel($scope.throttlePedalSensorLoop);
+        $interval.cancel($scope.throttlePedalSensorLoop);
+        $interval.cancel($scope.intakeFuelSensorLoop);
         $interval.cancel($scope.readLoop);
 
         localStorage.setItem('journeyData', JSON.stringify($scope.sensorData)); // store the data in localstorage
