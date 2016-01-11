@@ -15,12 +15,12 @@ var starter = angular.module('starter', ['ionic','ngCordova'])
       cordova.plugins.Keyboard.disableScroll(true);
 
     BluetoothService.disconnectFromDevice(); // disconnect if connected, can cause listing of devices issues
-    BluetoothService.enableBluetooth();
+   // BluetoothService.enableBluetooth();
 
-    if(localStorage.getItem('mac_address') !== null)
-    {
-      BluetoothService.connectToDevice(localStorage.getItem('mac_address'));
-    }
+   // if(localStorage.getItem('mac_address') !== null)
+   // {
+   //   BluetoothService.connectToDevice(localStorage.getItem('mac_address'));
+   // }
 
     if(localStorage.getItem('setup_complete') === null)
     {
