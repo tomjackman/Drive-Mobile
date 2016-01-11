@@ -6,7 +6,7 @@
   height: 150px;
   margin: 120px auto;
   border-radius: 50%;
-  background: linear-gradient(#607D8B, #72D1FF, #fff);
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
   position: relative;
   cursor: pointer;
   padding: 20px;
@@ -33,7 +33,7 @@
   width: 100%;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(#607D8B, #607D8B);
+  background: linear-gradient(rgba(96, 125, 139, 0), rgba(96, 125, 139, 0.44));
   display: block;
   box-shadow:
     0 -2px 5px rgba(255,255,255,0.05),
@@ -62,7 +62,7 @@
   left: 50%;
   top: 50%;
   border-radius: inherit;
-  background: inherit;
+  background: #72D1FF;
   margin: -20px 0 0 -20px;
   z-index: 2;
   box-shadow: inset 0 3px 5px rgba(0,0,0,0.3), 0 1px 2px rgba(255,255,255,1);
@@ -72,7 +72,7 @@
   display: block;
   width: 20px;
   height: 20px;
-  background: #607D8B;
+  background: rgba(0, 0, 0, 0);
   position: absolute;
   left: 50%;
   margin-left: -10px;
