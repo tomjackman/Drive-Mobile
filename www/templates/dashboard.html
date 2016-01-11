@@ -1,4 +1,4 @@
-<ion-view view-title="">
+<ion-view view-title="OCN">
   <ion-content>
 
 <div class="item item-light" style="background: linear-gradient(#607D8B, #72D1FF, #fff); border: 0px">
@@ -19,8 +19,9 @@
     <ion-item class="item-thumbnail-left">
       <img src="img/{{vehicle.car_manufacturer}}.png">
       <h2 class="balanced icon ion-model-s"> {{vehicle.car_manufacturer}} {{vehicle.car_model}}</h2>
-      <p>{{vehicle.car_year}}, {{vehicle.car_engine_size}}L {{vehicle.car_fuel_type}}</p>
-      <button class="button button-small button-energized icon ion-ios-cloud" style="border: 1px solid; border-radius: 10px;">  {{vehicle.id}}</button>
+      <p>{{vehicle.car_year}}</p> 
+      <p>{{vehicle.car_engine_size}}L {{vehicle.car_fuel_type}}</p>
+      <h3 class="energized icon ion-ios-cloud">  {{vehicle.id}}</h3>
     </ion-item>
 </div>
 
