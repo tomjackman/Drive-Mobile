@@ -83,6 +83,44 @@ $ionicConfigProvider.navBar.alignTitle('center'); // align all navbar text to ce
       }
     })
 
+    .state('app.sensorQuerying', {
+      url: '/sensorQuerying',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/sensorQuerying.html',
+          controller: 'sensorQueryingController'
+        }
+      }
+    })
+
+    .state('app.genderChooser', {
+      url: '/genderChooser',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/genderChooser.html',
+          controller: 'genderChooserController'
+        }
+      }
+    })
+    .state('app.countryChooser', {
+      url: '/countryChooser',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/countryChooser.html',
+          controller: 'countryChooserController'
+        }
+      }
+    })
+    .state('app.dateOfBirthChooser', {
+      url: '/dateOfBirthChooser',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/dateOfBirthChooser.html',
+          controller: 'dateOfBirthChooserController'
+        }
+      }
+    })
+
     .state('app.following', {
       url: '/following',
       views: {
