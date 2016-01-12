@@ -63,6 +63,36 @@ $ionicConfigProvider.navBar.alignTitle('center'); // align all navbar text to ce
       }
     })
 
+    .state('app.settings', {
+      url: '/settings',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/settings.html',
+          controller: 'settingsController'
+        }
+      }
+    })
+
+    .state('app.obdConnection', {
+      url: '/obdConnction',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/obdConnection.html',
+          controller: 'obdConnectionController'
+        }
+      }
+    })
+
+    .state('app.following', {
+      url: '/following',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/following.html',
+          controller: 'followingController'
+        }
+      }
+    })
+
     .state('app.vehicles', {
       url: '/vehicles',
       views: {
