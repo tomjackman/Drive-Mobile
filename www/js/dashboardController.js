@@ -1,6 +1,6 @@
 angular.module('starter')
 
-.controller('dashboardController', function($scope, BluetoothService, $cordovaToast, $cordovaBluetoothSerial, $timeout, $interval) {
+.controller('dashboardController', function($cordovaBluetoothSerial, $scope, BluetoothService, $cordovaToast, $timeout, $interval) {
 
 $scope.status = "Tap to Record";
 $scope.recording = false;
@@ -35,23 +35,61 @@ $scope.checkDisplay = function()
 
     $scope.checkDisplay();
 
-// CONNECT TO OBD / SEARCHING PHASE
-// When connection to OBD Device is made. Select protocols and query all sensors immediately.
-// THis means that when the user starts recording the data, the recording will start straight
-// away rather than having to wait for the searching phase to end.
+  $scope.setupBluetoothConnection = function()
+  {
+    if($scope.recording === false)
+    {
+    $cordovaBluetoothSerial.isEnabled().then( 
+          function() {
+            $cordovaBluetoothSerial.connect(localStorage.getItem('mac_address')).then(
+              function() {
+                $cordovaToast.show('Connected Succesfully to OBD-II Device', 'long', 'center');
+                $scope.recordData(); // start recording
+                $scope.updateConnectionStatus();
+              },
+              function() {
+                  $cordovaToast.show('Cannot connect to the OBD-II device. Either the vehicle is not turned on or the device is out of range', 'long', 'center');
+                  $scope.updateConnectionStatus();
+              }
+          );
+          },
+          function() {
+            $cordovaBluetoothSerial.enable().then(
+              function() {
+                  $cordovaBluetoothSerial.connect(localStorage.getItem('mac_address')).then(
+                      function() {
+                        $cordovaToast.show('Connected Succesfully to OBD-II Device', 'long', 'center');
+                        $scope.recordData(); // start recording
+                        $scope.updateConnectionStatus();
+                      },
+                      function() {
+                          $cordovaToast.show('Cannot connect to the OBD-II device. Either the vehicle is not turned on or the device is out of range', 'long', 'center');
+                          $scope.updateConnectionStatus();
+                      }
+                  );
+              },
+              function() {
+                   $cordovaToast.show('Please Enable Bluetooth', 'long', 'center');
+                }
+              );
+            }
+      );
+    }
+    else
+    {
+      $scope.recordData();
+    }
+  }
 
   $scope.recordData = function()
   {
-
-    BluetoothService.connectToDevice(localStorage.getItem('mac_address'));
-
     if($scope.recording === false)
     {
       $scope.recording = true;
       $scope.status = "Recording.. Tap to Stop.";
       $cordovaToast.show('Recording Starting in 10 Seconds.', 'short', 'center');
 
-      // ELM327 Setup / Initilisation
+      // ELM327 Setup / Initilisation 
 
       $scope.bluetoothWrite("ATZ\r");     // Reset ELM327
       $scope.bluetoothWrite("ATSP0\r");   // Auto Select Protocol
