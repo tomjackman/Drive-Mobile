@@ -1,0 +1,16 @@
+<ion-view view-title="OBD Device Settings">
+  <ion-content>
+       <div class="item item-body">
+       <div align="center"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/OBD-II_type_A_female_connector_shape.svg/150px-OBD-II_type_A_female_connector_shape.svg.png" width="40%" height="40%"></div>
+      <p>Please ensure that you have  <b>already paired</b> with the device using a passcode via your <b>Android System</b> settings.</p>
+        <div>
+                <ion-item ng-repeat="device in devices" ng-click="connectToDevice(device.address)">
+                    <h2>{{device.name}}</h2>
+                    <p>{{device.address}}</p>
+                </ion-item>
+        </div>
+        <div class="button button-balanced button-block button-clear icon icon ion-ios-search" ng-click="listDevices()">  {{search}}</div>
+        </div>
+
+       </ion-content>
+</ion-view>
