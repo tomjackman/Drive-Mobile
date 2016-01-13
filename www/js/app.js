@@ -4,9 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var starter = angular.module('starter', ['ionic','ngCordova'])
+var starter = angular.module('starter', ['ionic','ngCordova', 'ionic-datepicker'])
 
-.run(function($ionicPlatform, BluetoothService) {
+.run(function($ionicPlatform, BluetoothService, $ionicHistory) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -28,6 +28,12 @@ var starter = angular.module('starter', ['ionic','ngCordova'])
       localStorage.setItem('journeyData', JSON.stringify(journeyData));
       vehicleList = [];
       localStorage.setItem('vehicleList', JSON.stringify(vehicleList));
+
+      location.replace("#/app/obdConnection");
+                    $ionicHistory.nextViewOptions({
+                      disableAnimate: true,
+                      disableBack: true
+                    });
     }
 
     }
