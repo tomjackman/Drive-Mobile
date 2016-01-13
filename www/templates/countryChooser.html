@@ -1,10 +1,14 @@
 <ion-view view-title="Country">
   <ion-content>
 
-        
-      <ion-radio ng-click="saveGender('male')"><i class="icon ion-man"></i> Male</ion-radio>
+	  <label class="item item-input">
+	    <input type="text" ng-model="searchForCountry" placeholder="Search">
+	  </label>
 
-      <ion-radio ng-click="saveGender('female')"><i class="icon ion-woman"></i> Female</ion-radio>
+       <ion-list>
+         <ion-radio ng-repeat="country in countries | filter : searchForCountry" ng-click="saveCountry(country)"> {{country}}
+	    </ion-radio>
+    </ion-list>
 
   </ion-content>
 

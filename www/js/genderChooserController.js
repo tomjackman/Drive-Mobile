@@ -1,6 +1,6 @@
 angular.module('starter')
 
-.controller('genderChooserController', function($scope, $stateParams, StorageService) {
+.controller('genderChooserController', function($scope, $stateParams, StorageService, $ionicHistory) {
 
 	$scope.saveGender = function(gender)
 	{
@@ -11,12 +11,15 @@ angular.module('starter')
 	{
 		if(StorageService.isSetupComplete() === true)
 		{
-			window.location.href = '#/app/settings';
+			location.replace("#/app/settings");
+                    $ionicHistory.nextViewOptions({
+                      disableAnimate: true,
+                      disableBack: true
+                    });
 		}
 		else
 		{
 			window.location.href = '#/app/countryChooser';
 		}
 	}
-
 });

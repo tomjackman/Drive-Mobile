@@ -34,4 +34,10 @@ $scope.saveDetails = function(birthYear, gender, country, manufacturer, model, y
   StorageService.setupComplete();
 }
 
+$scope.next = function()
+{
+  
+}
+
+
 });
