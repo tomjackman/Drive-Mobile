@@ -1,12 +1,10 @@
-<ion-view view-title="Garage">
+<ion-view view-title="Garage" cache-view="false">
   <ion-content>
 
     <ion-list>
          <ion-item ng-repeat="vehicle in vehicles" class="item-thumbnail-left" ng-click="setActive(vehicle.car_manufacturer, vehicle.car_model, vehicle.car_year, vehicle.id)">
-         <ion-option-button class="button-balanced icon ion-android-create"
-                       ng-click="edit()"> </ion-option-button>
         <ion-option-button class="button-assertive icon ion-ios-trash-outline"
-                       ng-click="delete()"> </ion-option-button>
+                       ng-click="delete(vehicle.id)"> </ion-option-button>
       <img src="img/{{vehicle.car_manufacturer}}.png">
       <h2>{{vehicle.car_manufacturer}} {{vehicle.car_model}}</h2>
       <p>{{vehicle.car_year}}</p>
