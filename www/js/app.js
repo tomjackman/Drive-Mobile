@@ -137,6 +137,16 @@ $ionicConfigProvider.navBar.alignTitle('center'); // align all navbar text to ce
       }
     })
 
+    .state('app.addVehicle', {
+      url: '/addVehicle',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/addVehicle.html',
+          controller: 'addVehiclesController'
+        }
+      }
+    })
+
     .state('app.vehicles', {
       url: '/vehicles',
       views: {
