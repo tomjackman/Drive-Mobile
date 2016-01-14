@@ -4,6 +4,15 @@ angular.module('starter')
 
 $scope.date = new Date();
 
+if(StorageService.isSetupComplete() === true)
+{
+	$scope.buttonText = "Done";
+}
+else
+{
+	$scope.buttonText = "Finish";
+}
+
 $scope.datepickerObject = {
       titleLabel: 'Date of Birth',  //Optional
       todayLabel: '', //Optional
@@ -43,7 +52,7 @@ $scope.next = function()
 		}
 		else
 		{
-			window.location.href = '#/app/dashboard';
+			window.location.href = '#/app/addVehicle';
 		}
 	}
 });

@@ -2,6 +2,17 @@ angular.module('starter')
 
 .controller('obdConnectionController', function($scope, $stateParams, BluetoothService, StorageService) {
 
+$scope.search = "Search";
+
+if(StorageService.isSetupComplete() === true)
+{
+  $scope.buttonText = "Done";
+}
+else
+{
+  $scope.buttonText = "Next";
+}
+
 $scope.listDevices = function()
 {
   $scope.search = "Searching...";
@@ -36,7 +47,18 @@ $scope.saveDetails = function(birthYear, gender, country, manufacturer, model, y
 
 $scope.next = function()
 {
-  
+  if(StorageService.isSetupComplete() === true)
+    {
+      location.replace("#/app/settings");
+                    $ionicHistory.nextViewOptions({
+                      disableAnimate: true,
+                      disableBack: true
+                    });
+    }
+    else
+    {
+      window.location.href = '#/app/genderChooser';
+    }
 }
 
 
