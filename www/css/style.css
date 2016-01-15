@@ -1,4 +1,8 @@
 
+.ion-content {
+    background-color: #444444;
+}
+
 * { box-sizing: border-box; }
 
 .wrapper {
@@ -6,7 +10,7 @@
   height: 150px;
   margin: 80px auto;
   border-radius: 50%;
-  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
+  background: linear-gradient(rgb(68, 68, 68), rgb(68, 68, 68), rgb(68, 68, 68));
   position: relative;
   cursor: pointer;
   padding: 20px;

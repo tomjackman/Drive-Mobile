@@ -1,7 +1,19 @@
 <ion-view view-title="OCN">
-  <ion-content>
+  <ion-content style="background-color: #444444">
 
-<div class="item item-light" style="background: linear-gradient(#607D8B, #72D1FF, #fff); border: 0px">
+<div ng-if="show === true">
+    <ion-item class="item-thumbnail-left item-dark">
+      <img src="img/{{vehicle.car_manufacturer}}.png">
+      <h2 class="balanced"> {{vehicle.car_manufacturer}} {{vehicle.car_model}}</h2>
+      <h4 class="light">{{vehicle.car_year}}</h4> 
+      <h4 class="light">{{vehicle.car_engine_size}}L {{vehicle.car_fuel_type}}</h4>
+      <h4 class="light">  # {{vehicle.id}}</h4>
+    </ion-item>
+</div>
+
+    <a href="#/app/vehicles" class="button button-balanced button-full icon ion-ios-refresh-empty"> Switch Vehicle</a>
+
+<div class="item item-light" style="background: #009688; border: 0px">
 <div class="wrapper" ng-click="setupBluetoothConnection()">
   <div class="inner">
     <span></span>
@@ -9,22 +21,11 @@
 </div>
 
 <div align="center">
-<span class="balanced icon ion-power"> {{status}}</span>
+<span class="light icon ion-power"> {{status}}</span>
+</div>
 </div>
 
-</div>
 
-<div ng-if="show === true">
-    <ion-item class="item-thumbnail-left">
-      <img src="img/{{vehicle.car_manufacturer}}.png">
-      <h2 class="balanced icon ion-model-s"> {{vehicle.car_manufacturer}} {{vehicle.car_model}}</h2>
-      <p>{{vehicle.car_year}}</p> 
-      <p>{{vehicle.car_engine_size}}L {{vehicle.car_fuel_type}}</p>
-      <h3 class="energized icon ion-ios-cloud">  {{vehicle.id}}</h3>
-    </ion-item>
-</div>
-
-    <a href="#/app/vehicles" class="button button-light button-full icon ion-ios-refresh-empty"> Switch Vehicle</a>
 
     </ion-content>
 </ion-view>
