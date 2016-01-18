@@ -35,6 +35,29 @@ $scope.checkDisplay = function()
 
     $scope.checkDisplay();
 
+  $scope.bluetoothWrite = function(data)
+  {
+        $cordovaBluetoothSerial.write(data);
+  }
+
+  $scope.bluetoothRead = function()
+  {
+    $cordovaBluetoothSerial.readUntil('\r').then(
+          function(data) {
+            console.log(data);
+            data  = data.replace(/[^A-Z0-9]/ig, "");
+            console.log(data);
+            if(data.charAt(0) === '4')
+            {
+             $scope.sensorData.push(data);
+            }
+          },
+          function() {
+              return false;
+          }
+      );
+  }
+
   $scope.setupBluetoothConnection = function()
   {
     if($scope.recording === false)
@@ -45,11 +68,9 @@ $scope.checkDisplay = function()
               function() {
                 $cordovaToast.show('Connected Succesfully to OBD-II Device', 'long', 'center');
                 $scope.recordData(); // start recording
-                $scope.updateConnectionStatus();
               },
               function() {
                   $cordovaToast.show('Cannot connect to the OBD-II device. Either the vehicle is not turned on or the device is out of range', 'long', 'center');
-                  $scope.updateConnectionStatus();
               }
           );
           },
@@ -60,11 +81,9 @@ $scope.checkDisplay = function()
                       function() {
                         $cordovaToast.show('Connected Succesfully to OBD-II Device', 'long', 'center');
                         $scope.recordData(); // start recording
-                        $scope.updateConnectionStatus();
                       },
                       function() {
                           $cordovaToast.show('Cannot connect to the OBD-II device. Either the vehicle is not turned on or the device is out of range', 'long', 'center');
-                          $scope.updateConnectionStatus();
                       }
                   );
               },
@@ -89,20 +108,15 @@ $scope.checkDisplay = function()
       $scope.status = "Recording.. Tap to Stop.";
       $cordovaToast.show('Recording Starting in 10 Seconds.', 'short', 'center');
 
-      // ELM327 Setup / Initilisation 
+      // Clear bluetooth buffer
 
-      $scope.bluetoothWrite("ATZ\r");     // Reset ELM327
-      $scope.bluetoothWrite("ATSP0\r");   // Auto Select Protocol
-      $scope.bluetoothWrite("ATS0\r");    // Remove spaces from responses
-      $scope.bluetoothWrite("ATL0\r");    // Remove linefeeds from responses
+      $cordovaBluetoothSerial.clear();
 
       // Write to OBD Device - Initial Search Phase
 
-      // Diagnostics trouble codes
+      $scope.bluetoothWrite("ATSP0\r"); // Engine rpm
 
-      $scope.bluetoothWrite("03\r"); // Request trouble codes
-
-      // engine sensors
+      // engine related sensors
 
       $scope.bluetoothWrite("010C\r"); // Engine rpm
       $scope.bluetoothWrite("0104\r"); // Calculated engine load
@@ -144,18 +158,17 @@ $scope.checkDisplay = function()
       $scope.bluetoothWrite("010B\r"); // Intake manifold absolute pressure
       $scope.bluetoothWrite("0110\r"); // MAF air flow rate
 
-      // Read Buffer every 100ms
-
       $scope.readLoop = $interval(function() {
                $scope.bluetoothRead();
             }, 100);
-
+     
       $timeout(function()
         {
+
             // Query loop for DTC's
 
-            $scope.exhaustSystemSensorLoop = $interval(function() {
-               $scope.bluetoothWrite("03\r"); // Request trouble codes
+            $scope.troubleCodesLoop = $interval(function() {
+              // $scope.bluetoothWrite("03\r"); // Request trouble codes
             }, 60000);
 
             // Query Loop for Engine related sensors
@@ -214,7 +227,8 @@ $scope.checkDisplay = function()
         ,10000);
     }
     else
-    {
+    {   
+        $interval.cancel($scope.troubleCodesLoop);
         $interval.cancel($scope.engineSensorLoop);
         $interval.cancel($scope.temperatureSensorLoop);
         $interval.cancel($scope.throttlePedalSensorLoop);
@@ -222,34 +236,15 @@ $scope.checkDisplay = function()
         $interval.cancel($scope.intakeFuelSensorLoop);
         $interval.cancel($scope.readLoop);
 
+
         localStorage.setItem('journeyData', JSON.stringify($scope.sensorData)); // store the data in localstorage
         $scope.sensorData = []; // New array for new recording session
         $cordovaToast.show('Recording Stopped', 'short', 'center');
         $scope.recording = false;
         $scope.status = "Tap to Record";
+        $scope.bluetoothWrite("ATZ\r");     // Reset ELM327
+        $cordovaBluetoothSerial.clear();
     }
-  }
-
-
-  $scope.bluetoothWrite = function(data)
-  {
-        $cordovaBluetoothSerial.write(data);
-  }
-
-  $scope.bluetoothRead = function()
-  {
-  	$cordovaBluetoothSerial.readUntil('\r').then(
-          function(data) {
-          	if(data.charAt(0) === '4')
-          	{
-			       var point = {point: data};
-  			     $scope.sensorData.push(point);
-          	}
-          },
-          function() {
-              return false;
-          }
-      );
   }
 
 })
