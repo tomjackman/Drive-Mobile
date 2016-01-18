@@ -1,8 +1,9 @@
 angular.module('starter')
 
-.controller('obdConnectionController', function($scope, $stateParams, BluetoothService, StorageService) {
+.controller('obdConnectionController', function($scope, $cordovaBluetoothSerial, $stateParams, BluetoothService, StorageService) {
 
 $scope.search = "Search";
+$scope.devices = []
 
 if(StorageService.isSetupComplete() === true)
 {
@@ -17,7 +18,7 @@ $scope.listDevices = function()
 {
   $scope.search = "Searching...";
 
-        $cordovaBluetoothSerial.discoverUnpaired().then(
+        $cordovaBluetoothSerial.list().then(
           function(devices) {
              devices.forEach(function(device) {
               $scope.devices.push({id: device.id, name: device.name, address: device.address});
