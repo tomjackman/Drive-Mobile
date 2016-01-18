@@ -5879,7 +5879,7 @@ ion-tabs.tabs-color-active-dark .tab-item {
     background-color: #886aea;
     color: #fff; }
   .item.item-dark {
-    border-color: #444;
+    border-color: #009688;
     background-color: #444;
     color: #fff; }
   .item[ng-click]:hover {
