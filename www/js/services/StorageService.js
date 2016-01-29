@@ -1,6 +1,6 @@
 angular.module('starter')
 
-.factory('StorageService', function($cordovaBluetoothSerial, $http, $ionicLoading) {
+.factory('StorageService', function($timeout, $ionicActionSheet, $cordovaBluetoothSerial, $http, $ionicLoading) {
 
   return {
 
@@ -30,10 +30,6 @@ angular.module('starter')
         var vehicles = localStorage.getItem('vehicleList');
         vehicles = JSON.parse(vehicles);
 
-            $ionicLoading.show({
-              template: 'Generating Global ID...'
-            });
-
             var dateOfBirth = localStorage.getItem('dateOfBirth'); 
             var gender = localStorage.getItem('gender');
             var country = localStorage.getItem('country');
@@ -41,18 +37,49 @@ angular.module('starter')
             $http.post('http://localhost:8080/Drive/api/addNewVehicle', { dateOfBirth: dateOfBirth, gender: gender, country: country, carData: carData}, {
             ignoreAuthModule: true}).success(function(data) {
 
-            var id = data.id;
+              if(data.status.name === "CREATED")
+              {
+                console.log(data);
+              var id = data.id;
+              var newVehicle = {id: id, 'carData': carData};
+          
+              vehicles.push(newVehicle);
+              localStorage.setItem('vehicleList', JSON.stringify(vehicles));
+              localStorage.setItem('active_vehicle', id);
 
-            var newVehicle = {id: id, 'carData': carData};
-        
-            vehicles.push(newVehicle);
-            localStorage.setItem('vehicleList', JSON.stringify(vehicles));
-            localStorage.setItem('active_vehicle', id);
+              localStorage.setItem('chosenManufacturer', "");
+              localStorage.setItem('chosenModel', "");
+              localStorage.setItem('chosenStyle', "");
+              localStorage.setItem('chosenStyleId', "");
+              localStorage.setItem('chosenYear', "");
 
-            // DELETE ALL CHOSEN * LOCAL STORAGE VARIABLES
+              // Show the action sheet
+                 var hideSheet = $ionicActionSheet.show({
+                   titleText: '<i class="icon ion-ios-cloud-upload-outline"></i> Synced to the Cloud'
+                      });
 
-            $ionicLoading.hide();
-            });
+                 // hide the sheet after two seconds
+                 $timeout(function() {
+                   hideSheet();
+                 }, 3000);
+
+              }
+              else
+              {
+                // Show the action sheet
+                 var hideSheet = $ionicActionSheet.show({
+                   titleText: '<i class="icon ion-ios-close-outline"></i> Invalid or Missing Data'
+                      });
+
+                 // hide the sheet after two seconds
+                 $timeout(function() {
+                   hideSheet();
+                 }, 20000);
+              }
+
+            }
+            // CANNOT REACH SERVER ERROR MESSAGE HERE
+            );
       },
 
       setupComplete: function(){
