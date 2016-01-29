@@ -1,0 +1,38 @@
+<ion-view view-title="Chosen Vehicle" cache-view="false">
+  <ion-content ng-init="getFinalVehicle()">
+
+   	<div class="list card">
+
+	  <div class="item item-avatar">
+	    <img src="/img/{{manufacturer}}.png">
+	    <h2>{{manufacturer}} {{model}}</h2>
+	    <p>{{year}}, {{style}}</p>
+	  </div>
+
+	  <div class="item item-light">
+	  	<p>Style - {{vehicle.categories.vehicleStyle}}</p>
+	  	<p>Doors - {{vehicle.numOfDoors}}</p>
+	    <p>Engine Size - {{vehicle.engine.size}}L</p>
+	    <p>Valves - {{vehicle.engine.totalValves}}</p>
+	    <p>Fuel Type - {{vehicle.engine.fuelType}}</p>
+	    <p>MPG - {{vehicle.MPG.highway}} (Highway) / {{vehicle.MPG.highway}} (City)</p>
+	    <p>Horspepower - {{vehicle.engine.horsepower}}HP</p>
+	    <p>Torque - {{vehicle.engine.torque}} ft lb</p>
+	    <p>Transmission - {{vehicle.transmission.transmissionType}}</p>
+	    <p>No. Speeds - {{vehicle.transmission.numberOfSpeeds}}</p>
+	    <p>Driven Wheels - {{vehicle.drivenWheels}}</p>
+	  </div>
+
+	   <ion-list>
+	         <ion-item ng-repeat="feature in features"> 
+	         	{{feature}}
+	         	{{features}}
+		    </ion-item>
+    	</ion-list>
+
+	  <div class="button button-balanced button-full" ng-click="addNewVehicle()">Finish</div>
+
+	</div>
+
+  </ion-content>
+</ion-view>

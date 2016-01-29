@@ -1,0 +1,12 @@
+<ion-view view-title="Choose Model" cache-view="false"> 
+  <ion-content ng-init="getVehicleModels()">
+
+        <label class="item item-input">
+        <input type="text" ng-model="searchModel" placeholder="Search">
+      </label>
+       <ion-list>
+         <ion-radio ng-repeat="model in models | filter : searchModel" ng-click="chooseModel(model.name)"> {{model.name}}
+        </ion-radio>
+    </ion-list>
+  </ion-content>
+</ion-view>
