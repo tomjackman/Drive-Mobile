@@ -4,9 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var starter = angular.module('starter', ['ionic','ngCordova'])
+var starter = angular.module('starter', ['ionic','ngCordova', 'ionic-datepicker'])
 
-.run(function($ionicPlatform, BluetoothService) {
+.run(function($ionicPlatform, BluetoothService, $ionicHistory) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -15,11 +15,25 @@ var starter = angular.module('starter', ['ionic','ngCordova'])
       cordova.plugins.Keyboard.disableScroll(true);
 
     BluetoothService.disconnectFromDevice(); // disconnect if connected, can cause listing of devices issues
-    BluetoothService.enableBluetooth();
+   // BluetoothService.enableBluetooth();
 
-    if(localStorage.getItem('mac_address') !== null)
+   // if(localStorage.getItem('mac_address') !== null)
+   // {
+   //   BluetoothService.connectToDevice(localStorage.getItem('mac_address'));
+   // }
+
+    if(localStorage.getItem('setup_complete') === null)
     {
-      BluetoothService.connectToDevice(localStorage.getItem('mac_address'));
+      journeyData = [];
+      localStorage.setItem('journeyData', JSON.stringify(journeyData));
+      vehicleList = [];
+      localStorage.setItem('vehicleList', JSON.stringify(vehicleList));
+
+      location.replace("#/app/obdConnection");
+                    $ionicHistory.nextViewOptions({
+                      disableAnimate: true,
+                      disableBack: true
+                    });
     }
 
     }
@@ -27,8 +41,6 @@ var starter = angular.module('starter', ['ionic','ngCordova'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-
-
   });
 })
 
@@ -57,6 +69,84 @@ $ionicConfigProvider.navBar.alignTitle('center'); // align all navbar text to ce
       }
     })
 
+    .state('app.settings', {
+      url: '/settings',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/settings.html',
+          controller: 'settingsController'
+        }
+      }
+    })
+
+    .state('app.obdConnection', {
+      url: '/obdConnction',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/obdConnection.html',
+          controller: 'obdConnectionController'
+        }
+      }
+    })
+
+    .state('app.sensorQuerying', {
+      url: '/sensorQuerying',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/sensorQuerying.html',
+          controller: 'sensorQueryingController'
+        }
+      }
+    })
+
+    .state('app.genderChooser', {
+      url: '/genderChooser',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/genderChooser.html',
+          controller: 'genderChooserController'
+        }
+      }
+    })
+    .state('app.countryChooser', {
+      url: '/countryChooser',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/countryChooser.html',
+          controller: 'countryChooserController'
+        }
+      }
+    })
+    .state('app.dateOfBirthChooser', {
+      url: '/dateOfBirthChooser',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/dateOfBirthChooser.html',
+          controller: 'dateOfBirthChooserController'
+        }
+      }
+    })
+
+    .state('app.following', {
+      url: '/following',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/following.html',
+          controller: 'followingController'
+        }
+      }
+    })
+
+    .state('app.addVehicle', {
+      url: '/addVehicle',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/addVehicle.html',
+          controller: 'addVehiclesController'
+        }
+      }
+    })
+
     .state('app.vehicles', {
       url: '/vehicles',
       views: {
@@ -65,17 +155,9 @@ $ionicConfigProvider.navBar.alignTitle('center'); // align all navbar text to ce
           controller: 'vehiclesController'
         }
       }
-    })
+    });
 
-  .state('app.single', {
-    url: '/components',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/component.html',
-        controller: 'componentController'
-      }
-    }
-  });
+    
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/dashboard');
 });

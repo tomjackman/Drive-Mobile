@@ -1,2 +1,2 @@
-/media/sf_Semester_7/Project/OpenCarNetworkApp/platforms/android/build/intermediates/classes/debug
-/media/sf_Semester_7/Project/OpenCarNetworkApp/platforms/android/build/intermediates/pre-dexed/debug/classes-0e5a72d84687b8a65e53e85607313ad922e5de69.jar
+/media/sf_Semester_8/Project/open-car-network-mobile/platforms/android/build/intermediates/classes/debug
+/media/sf_Semester_8/Project/open-car-network-mobile/platforms/android/build/intermediates/pre-dexed/debug/classes-cc91f30c12d66a8ae3308fd475d155c9797d73b4.jar

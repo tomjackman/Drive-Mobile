@@ -49,6 +49,7 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <allow-navigation href="http://*/*" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
@@ -57,4 +58,4 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
 </widget>
-<!-- From: file:/media/sf_Semester_7/Project/OpenCarNetworkApp/platforms/android/res/xml/config.xml -->
+<!-- From: file:/media/sf_Semester_8/Project/open-car-network-mobile/platforms/android/res/xml/config.xml -->

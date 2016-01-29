@@ -2,11 +2,11 @@
 <items version="2" >
 
     <item
-        jar="/media/sf_Semester_7/Project/OpenCarNetworkApp/platforms/android/build/intermediates/exploded-aar/android/CordovaLib/unspecified/debug/classes.jar"
+        jar="/media/sf_Semester_8/Project/open-car-network-mobile/platforms/android/build/intermediates/exploded-aar/android/CordovaLib/unspecified/debug/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="beb1c2141d0d45f64dba9074e4d0167810140f38">
-        <dex dex="/media/sf_Semester_7/Project/OpenCarNetworkApp/platforms/android/build/intermediates/pre-dexed/debug/classes-0e5a72d84687b8a65e53e85607313ad922e5de69.jar" />
+        sha1="1aa0d24a42d9bcd1943f20fdc8b9ce5116d3bf4f">
+        <dex dex="/media/sf_Semester_8/Project/open-car-network-mobile/platforms/android/build/intermediates/pre-dexed/debug/classes-cc91f30c12d66a8ae3308fd475d155c9797d73b4.jar" />
     </item>
 
 </items>

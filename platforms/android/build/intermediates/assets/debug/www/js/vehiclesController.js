@@ -1,42 +1,25 @@
 angular.module('starter')
 
-.controller('vehiclesController', function($scope, $ionicModal, StorageService, $cordovaToast) {
+.controller('vehiclesController', function($scope, $ionicHistory, $ionicModal, StorageService, $cordovaToast) {
 
   var vehicles = localStorage.getItem('vehicleList');
   $scope.vehicles = JSON.parse(vehicles);
 
-  // Create the new vehicle modal
-  $ionicModal.fromTemplateUrl('templates/addVehicle.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
   $scope.addVehicle = function()
   {
-  	$scope.modal.show();
+  	window.location.href = '#/app/addVehicle';
   }
 
-  $scope.close = function()
+  $scope.delete = function(id)
   {
-    $scope.modal.hide();
+    StorageService.deleteVehicle(id);
+    $cordovaToast.show("Deleted" , 'long', 'center');
   }
 
   $scope.setActive = function(man, mod, year, vehicle_id)
   {
     localStorage.setItem('active_vehicle', vehicle_id);
-
     $cordovaToast.show(year + " " + man + " " + mod + " is now active." , 'long', 'center');
-  }
-
-  $scope.add = function(manufacturer, model, year, engine_size, fuel_type)
-  {	
-  	StorageService.addVehicle(manufacturer, model, year, engine_size, fuel_type);
-
-  	$scope.modal.hide();
-
-    var vehicles = localStorage.getItem('vehicleList');
-    $scope.vehicles = JSON.parse(vehicles);
   }
 
 })

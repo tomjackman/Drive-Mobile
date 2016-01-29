@@ -1,29 +1,31 @@
-<ion-view view-title="Dashboard" cache-view="false">
-  <ion-content>
+<ion-view view-title="Drive">
+  <ion-content style="background-color: #009688">
 
-<a href="#/app/vehicles" class="button button-balanced button-full button-clear icon ion-refresh"> Switch Vehicle</a>
-    <ion-item class="item-thumbnail-left">
+<div ng-if="show === true">
+    <ion-item class="item-thumbnail-left item-dark">
       <img src="img/{{vehicle.car_manufacturer}}.png">
-      <h2>{{vehicle.car_manufacturer}} {{vehicle.car_model}}</h2>
-      <p>{{vehicle.car_year}}</p>
-      <p>{{vehicle.car_engine_size}}L {{vehicle.car_fuel_type}}</p> 
-    </ion-item> 
-
-
-    <div class="button button-balanced button-full button-outline" ng-click="connectToBluetooth()"> Connect To Bluetooth</div>
-
-
-
-    <div class="button button-balanced button-full button-outline" ng-click="selectProtocol()"> Select Protocol</div>
-
-    <div class="button button-balanced button-full button-outline" ng-click="rpm()"> Get RPM</div> 
-
-<div class="button button-balanced button-full button-outline" ng-click="bluetoothRead()"> Bluetooth Read</div> 
-
-
-    <ion-item ng-repeat="point in log">
-       {{point.id}}
+      <h2 class="balanced"> {{vehicle.car_manufacturer}} {{vehicle.car_model}}</h2>
+      <h4 class="light">{{vehicle.car_year}}</h4> 
+      <h4 class="light">{{vehicle.car_engine_size}}L {{vehicle.car_fuel_type}}</h4>
+      <h4 class="light">  # {{vehicle.id}}</h4>
     </ion-item>
+</div>
+
+    <a href="#/app/vehicles" class="button button-balanced button-full icon ion-ios-refresh-empty"> Switch Vehicle</a>
+
+<div class="item item-light" style="background: #009688; border: 0px">
+<div class="wrapper" ng-click="setupBluetoothConnection()">
+  <div class="inner">
+    <span></span>
+  </div>
+</div>
+
+<div align="center">
+<span class="light icon ion-power"> {{status}}</span>
+</div>
+</div>
+
+
 
     </ion-content>
 </ion-view>

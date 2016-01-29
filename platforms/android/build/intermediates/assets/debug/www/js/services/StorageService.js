@@ -9,10 +9,18 @@ angular.module('starter')
        return localStorage.getItem('mac_address');
       },
 
-      // Save the setup details
-      saveSetupDetails: function(birthYear, gender, country){
-        localStorage.setItem('birthYear', birthYear);
+      // Save the gender
+      saveGender: function(gender){
         localStorage.setItem('gender', gender);
+      },
+
+       // Save the birth year details
+      saveDateOfBirth: function(date){
+        localStorage.setItem('dateOfBirth', date);
+      },
+
+       // Save the country details
+      saveCountry: function(country){
         localStorage.setItem('country', country);
       },
 
@@ -34,16 +42,27 @@ angular.module('starter')
         
         vehicles.push(newVehicle);
         localStorage.setItem('vehicleList', JSON.stringify(vehicles));
+        localStorage.setItem('active_vehicle', generateId);
 
       },
 
       setupComplete: function(){
         localStorage.setItem('setup_complete', 'true');
-        journeyData = {};
-        localStorage.setItem('journeyData', JSON.stringify(journeyData));
-        vehicleList = {};
-        localStorage.setItem('vehicleList', JSON.stringify(vehicleList));
+        window.location.href = '#/app/dashboard';
+        window.location.href = '#/app/vehicles';
+        window.location.href = '#/app/dashboard';
       },
+
+      isSetupComplete: function(){
+        if(localStorage.getItem('setup_complete') === 'true')
+        {
+          return true;
+        }
+        else
+        {
+          return false;
+        }
+      }
 
   };
 

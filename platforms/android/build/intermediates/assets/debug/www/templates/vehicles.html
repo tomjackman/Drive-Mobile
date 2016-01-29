@@ -1,17 +1,15 @@
-<ion-view view-title="Your Vehicles">
+<ion-view view-title="Garage" cache-view="false">
   <ion-content>
 
     <ion-list>
-         <ion-item ng-repeat="vehicle in vehicles" class="item-thumbnail-left" ng-click="setActive(vehicle.car_manufacturer, vehicle.car_model, vehicle.car_year, vehicle.id)">
-         <ion-option-button class="button-balanced icon ion-android-create"
-                       ng-click="edit()"> </ion-option-button>
+         <ion-item ng-repeat="vehicle in vehicles" class="item-thumbnail-left item-dark" ng-click="setActive(vehicle.car_manufacturer, vehicle.car_model, vehicle.car_year, vehicle.id)">
         <ion-option-button class="button-assertive icon ion-ios-trash-outline"
-                       ng-click="delete()"> </ion-option-button>
+                       ng-click="delete(vehicle.id)"> </ion-option-button>
       <img src="img/{{vehicle.car_manufacturer}}.png">
-      <h2>{{vehicle.car_manufacturer}} {{vehicle.car_model}}</h2>
-      <p>{{vehicle.car_year}}</p>
-      <p>{{vehicle.car_engine_size}}L {{vehicle.car_fuel_type}}</p>
-      <h3 class="positive icon ion-ios-medical-outline"> {{vehicle.id}}</h3>
+      <h2 class="balanced">{{vehicle.car_manufacturer}} {{vehicle.car_model}}</h2>
+      <h4 class="light">{{vehicle.car_year}}</h4>
+      <h4 class="light">{{vehicle.car_engine_size}}L {{vehicle.car_fuel_type}}</h4>
+      <h3 class="light"># {{vehicle.id}}</h3>
     </ion-item>
     </ion-list>
 
