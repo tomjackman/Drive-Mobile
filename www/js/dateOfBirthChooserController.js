@@ -36,8 +36,14 @@ $scope.datepickerObject = {
 $scope.saveDateOfBirth = function(date)
 	{
 		$scope.date = date;
-		console.log(date.getMonth());
-		StorageService.saveDateOfBirth(date);
+
+    var month = $scope.date.getUTCMonth() + 1; //months from 1-12
+    var day = $scope.date.getUTCDate();
+    var year = $scope.date.getUTCFullYear();
+
+    var formattedDate = year + "-" + month + "-" + day;
+
+		StorageService.saveDateOfBirth(formattedDate);
 	}
 
 $scope.next = function()
