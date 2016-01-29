@@ -1,6 +1,6 @@
 angular.module('starter')
 
-.factory('StorageService', function($cordovaBluetoothSerial) {
+.factory('StorageService', function($cordovaBluetoothSerial, $http, $ionicLoading) {
 
   return {
 
@@ -25,31 +25,38 @@ angular.module('starter')
       },
 
       // Save the setup details
-      addVehicle: function(car_manufacturer, car_model, car_year, car_engine_size, car_fuel_type){
-
-        function generateId(length, chars) {
-            var result = '';
-            for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
-            return result;
-        }
-
-        var generateId = generateId(10, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+      addVehicle: function(carData){
 
         var vehicles = localStorage.getItem('vehicleList');
         vehicles = JSON.parse(vehicles);
 
-        var newVehicle = {id: generateId, 'car_manufacturer': car_manufacturer, 'car_model': car_model, 'car_year': car_year, 'car_engine_size': car_engine_size, 'car_fuel_type': car_fuel_type}
-        
-        vehicles.push(newVehicle);
-        localStorage.setItem('vehicleList', JSON.stringify(vehicles));
-        localStorage.setItem('active_vehicle', generateId);
+            $ionicLoading.show({
+              template: 'Generating Global ID...'
+            });
 
+            var dateOfBirth = localStorage.getItem('dateOfBirth'); 
+            var gender = localStorage.getItem('gender');
+            var country = localStorage.getItem('country');
+
+            $http.post('http://localhost:8080/Drive/api/addNewVehicle', { dateOfBirth: dateOfBirth, gender: gender, country: country, carData: carData}, {
+            ignoreAuthModule: true}).success(function(data) {
+
+            var id = data.id;
+
+            var newVehicle = {id: id, 'carData': carData};
+        
+            vehicles.push(newVehicle);
+            localStorage.setItem('vehicleList', JSON.stringify(vehicles));
+            localStorage.setItem('active_vehicle', id);
+
+            // DELETE ALL CHOSEN * LOCAL STORAGE VARIABLES
+
+            $ionicLoading.hide();
+            });
       },
 
       setupComplete: function(){
         localStorage.setItem('setup_complete', 'true');
-        window.location.href = '#/app/dashboard';
-        window.location.href = '#/app/vehicles';
         window.location.href = '#/app/dashboard';
       },
 

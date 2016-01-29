@@ -45,10 +45,13 @@ var starter = angular.module('starter', ['ionic','ngCordova', 'ionic-datepicker'
 })
 
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider) {
 
-$ionicConfigProvider.navBar.alignTitle('center'); // align all navbar text to center
-
+  $ionicConfigProvider.navBar.alignTitle('center'); // align all navbar text to center
+  $httpProvider.defaults.headers.common = {};
+  $httpProvider.defaults.headers.post = {};
+  $httpProvider.defaults.headers.put = {};
+  $httpProvider.defaults.headers.patch = {};
 
   $stateProvider
 
@@ -137,11 +140,51 @@ $ionicConfigProvider.navBar.alignTitle('center'); // align all navbar text to ce
       }
     })
 
-    .state('app.addVehicle', {
-      url: '/addVehicle',
+    .state('app.addVehicleMake', {
+      url: '/addVehicleMake',
       views: {
         'menuContent': {
-          templateUrl: 'templates/addVehicle.html',
+          templateUrl: 'templates/addVehicleMake.html',
+          controller: 'addVehiclesController'
+        }
+      }
+    })
+
+    .state('app.addVehicleModel', {
+      url: '/addVehicleModel',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/addVehicleModel.html',
+          controller: 'addVehiclesController'
+        }
+      }
+    })
+
+    .state('app.addVehicleYear', {
+      url: '/addVehicleYear',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/addVehicleYear.html',
+          controller: 'addVehiclesController'
+        }
+      }
+    })
+
+    .state('app.addVehicleStyle', {
+      url: '/addVehicleStyle',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/addVehicleStyle.html',
+          controller: 'addVehiclesController'
+        }
+      }
+    })
+
+    .state('app.finalVehicle', {
+      url: '/finalVehicle',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/finalVehicle.html',
           controller: 'addVehiclesController'
         }
       }

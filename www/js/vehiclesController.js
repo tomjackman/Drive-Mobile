@@ -1,13 +1,13 @@
 angular.module('starter')
 
-.controller('vehiclesController', function($scope, $ionicHistory, $ionicModal, StorageService, $cordovaToast) {
+.controller('vehiclesController', function($scope, $state, $ionicHistory, $ionicModal, StorageService, $cordovaToast) {
 
   var vehicles = localStorage.getItem('vehicleList');
   $scope.vehicles = JSON.parse(vehicles);
 
   $scope.addVehicle = function()
   {
-  	window.location.href = '#/app/addVehicle';
+  	$state.go('app.addVehicleMake');
   }
 
   $scope.delete = function(id)
