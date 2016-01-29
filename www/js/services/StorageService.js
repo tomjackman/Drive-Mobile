@@ -39,7 +39,6 @@ angular.module('starter')
 
               if(data.status.name === "CREATED")
               {
-                console.log(data);
               var id = data.id;
               var newVehicle = {id: id, 'carData': carData};
           
@@ -55,13 +54,13 @@ angular.module('starter')
 
               // Show the action sheet
                  var hideSheet = $ionicActionSheet.show({
-                   titleText: '<i class="icon ion-ios-cloud-upload-outline"></i> Synced to the Cloud'
+                   titleText: '<i class="icon ion-ios-cloud-upload-outline"></i> Saved to the Cloud'
                       });
 
                  // hide the sheet after two seconds
                  $timeout(function() {
                    hideSheet();
-                 }, 3000);
+                 }, 7000);
 
               }
               else
