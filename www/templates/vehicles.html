@@ -2,14 +2,14 @@
   <ion-content>
 
     <ion-list>
-         <ion-item ng-repeat="vehicle in vehicles" class="item-thumbnail-left item-light" ng-click="setActive(vehicle.car_manufacturer, vehicle.car_model, vehicle.car_year, vehicle.id)">
-        <ion-option-button class="button-assertive icon ion-ios-trash-outline"
-                       ng-click="delete(vehicle.id)"> </ion-option-button>
-      <img src="img/{{vehicle.car_manufacturer}}.png">
-      <h2 class="dark">{{vehicle.car_manufacturer}} {{vehicle.car_model}}</h2>
-      <h4 class="dark">{{vehicle.car_year}}</h4>
-      <h4 class="dark">{{vehicle.car_engine_size}}L {{vehicle.car_fuel_type}}</h4>
-      <h3 class="dark"># {{vehicle.id}}</h3>
+         <ion-item ng-repeat="vehicle in vehicles" class="item-thumbnail-left item-light" ng-click="setActive(vehicle, vehicle.car_model, vehicle.car_year, vehicle.id)">
+      <img src="img/{{vehicle.carData.make.name}}.png">
+      <h2 class="dark">{{vehicle.carData.make.name}} {{vehicle.carData.model.name}}</h2>
+      <h4 class="dark">{{vehicle.carData.year.year}} {{vehicle.carData.categories.vehicleStyle}}</h4>
+      <h4 class="dark">{{vehicle.carData.engine.size}}L, {{vehicle.carData.engine.horsepower}}hp</h4>
+      <h4 class="dark">{{vehicle.carData.transmission.transmissionType}}</h4>
+      <h3 class="balanced"><i class="icon ion-ios-cloud-outline"></i> {{vehicle.id}}</h3>
+      
     </ion-item>
     </ion-list>
 
