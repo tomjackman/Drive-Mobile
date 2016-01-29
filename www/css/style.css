@@ -3,7 +3,9 @@
     background-color: #444444;
 }
 
-
+body {
+  cursor: url('http://ionicframework.com/img/finger.png'), auto;
+}
 
 * { box-sizing: border-box; }
 
