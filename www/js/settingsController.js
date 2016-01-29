@@ -6,7 +6,7 @@ angular.module('starter')
 
 	$scope.gender = localStorage.getItem('gender');
 
-	$scope.dateOfBirth = localStorage.getItem('birthYear');
+	$scope.dateOfBirth = localStorage.getItem('dateOfBirth');
 
 	$scope.country = localStorage.getItem('country');
 
