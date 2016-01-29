@@ -2,7 +2,7 @@ angular.module('starter')
 
 .controller('dashboardController', function($cordovaBluetoothSerial, $scope, BluetoothService, $cordovaToast, $timeout, $interval) {
 
-$scope.status = "Tap to Record";
+$scope.status = "Tap to Start";
 $scope.recording = false;
 $scope.sensorData = [];
 
