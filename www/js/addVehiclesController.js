@@ -118,15 +118,11 @@ $scope.chosenManufacturer = "";
 
     if(StorageService.isSetupComplete() === true)
     {
-      location.replace("#/app/vehicles");
-                    $ionicHistory.nextViewOptions({
-                      disableAnimate: true,
-                      disableBack: true
-                    });
+      $state.go('app.vehicles');
     }
     else
     {
-      window.location.href = '#/app/dashboard';
+      $state.go('app.dashboard');
     }
   }
 
