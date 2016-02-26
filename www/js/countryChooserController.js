@@ -13,24 +13,26 @@ angular.module('starter')
 			$scope.buttonText = "Next";
 		}
 
+	/**
+   * Chooses next route depending on if setup has been complete or not.
+   */
 	$scope.saveCountry = function(country)
 	{
 		StorageService.saveCountry(country);
 	}
 
+ 	/**
+   * Chooses next route depending on if setup has been complete or not.
+   */
 	$scope.next = function()
 	{
 		if(StorageService.isSetupComplete() === true)
 		{
-			location.replace("#/app/settings");
-                    $ionicHistory.nextViewOptions({
-                      disableAnimate: true,
-                      disableBack: true
-                    });
+			$state.go('settings');
 		}
 		else
 		{
-			window.location.href = '#/app/dateOfBirthChooser';
+			$state.go('dateOfBirthChooser');
 		}
 	}
 
