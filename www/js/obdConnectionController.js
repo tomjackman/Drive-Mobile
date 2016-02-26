@@ -5,6 +5,7 @@ angular.module('starter')
 $scope.search = "Search";
 $scope.devices = []
 
+// Change the save/next button text depending on if the setup has been completed or not
 if(StorageService.isSetupComplete() === true)
 {
   $scope.buttonText = "Done";
@@ -14,6 +15,9 @@ else
   $scope.buttonText = "Next";
 }
 
+/**
+ * This method will list the phones paired bluetooth devices.
+ */
 $scope.listDevices = function()
 {
   $scope.search = "Searching...";
@@ -33,19 +37,19 @@ $scope.listDevices = function()
           );
 }
 
-$scope.connectToDevice = function(mac_address)
+/**
+ * This method will store the MAC address of the bluetooth device.
+ */
+$scope.chooseDevice = function(mac_address)
 {
-  BluetoothService.connectToDevice(mac_address);
+  localStorage.setItem('mac_address', macAddress); // store the address of the device
 }
 
-
-$scope.saveDetails = function(birthYear, gender, country, manufacturer, model, year, engine_size, fuel_type)
-{
-  StorageService.saveSetupDetails(birthYear, gender, country);
-  StorageService.addVehicle(manufacturer, model, year, engine_size, fuel_type);
-  StorageService.setupComplete();
-}
-
+/**
+ * This method will decide the routing depending if the app setup has been complete.
+ * If the app setup has been complete, then the used has edited the setting via the 
+ * settings menu - so return to the settings menu when they hit save.
+ */
 $scope.next = function()
 {
   if(StorageService.isSetupComplete() === true)
