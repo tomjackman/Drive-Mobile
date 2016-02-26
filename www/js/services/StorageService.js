@@ -4,32 +4,42 @@
 
 angular.module('starter')
 
-.factory('StorageService', function($timeout, $ionicActionSheet, $cordovaBluetoothSerial, $http, $ionicLoading) {
+.factory('StorageService', function($timeout, $ionicActionSheet, $cordovaBluetoothSerial, $http, $ionicLoading, $state) {
 
   return {
 
-      // retrieve the stored Mac Address
+      /**
+     * This method will retrieve the stored Mac Address
+     */
       getMacAddress: function(){
        return localStorage.getItem('mac_address');
       },
 
-      // Save the gender
+    /**
+     * This method will save the gender
+     */
       saveGender: function(gender){
         localStorage.setItem('gender', gender);
       },
 
-       // Save the birth year details
+    /**
+     * This method will save the birth year details
+     */
       saveDateOfBirth: function(date){
         localStorage.setItem('dateOfBirth', date);
       },
 
-       // Save the country details
+      /**
+     * This method will save the country details
+     */
       saveCountry: function(country){
         localStorage.setItem('country', country);
       },
 
-      // Sends the vehicle and driver data to the cloud, requests unique identifier from the cloud.
-      // The vehicle is saved locally with the unique id from the cloud.
+    /**
+     * This method sends the vehicle and driver data to the cloud, requests unique identifier from the cloud.
+     * The vehicle is saved locally with the unique id from the cloud.
+     */
       addVehicle: function(carData){
 
             var dateOfBirth = localStorage.getItem('dateOfBirth'); 
@@ -87,7 +97,9 @@ angular.module('starter')
             );
       },
 
-      // Sends the journey data to the cloud.
+     /**
+     * This method sends the journey data to the cloud.
+     */
       addJourney: function(){
 
         var vehicleID = localStorage.getItem("active_vehicle");
@@ -139,13 +151,17 @@ angular.module('starter')
             );
       },
 
-      // Sets the setup complete flag to true
+    /**
+     * This method sets the setup complete flag to true meaning the initial setup has been carried out
+     */
       setupComplete: function(){
         localStorage.setItem('setup_complete', 'true');
         $state.go('dashboard');
       },
 
-      // Checks if the setup wizzard has been completed or not
+      /**
+     * This method returns the state of the setup completion
+     */
       isSetupComplete: function(){
         if(localStorage.getItem('setup_complete') === 'true')
         {
