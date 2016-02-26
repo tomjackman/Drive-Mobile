@@ -118,7 +118,7 @@ $scope.chosenManufacturer = "";
 
     if(StorageService.isSetupComplete() === true)
     {
-      $state.go('app.vehicles');
+      $state.go('app.dashboard');
     }
     else
     {
