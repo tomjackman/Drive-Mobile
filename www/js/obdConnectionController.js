@@ -39,6 +39,7 @@ $scope.listDevices = function()
 
 /**
  * This method will store the MAC address of the bluetooth device.
+ * @param mac_address - The mac address to store
  */
 $scope.chooseDevice = function(mac_address)
 {

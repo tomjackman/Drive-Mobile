@@ -15,6 +15,10 @@ angular.module('starter')
 
   /**
  * This method will set the current vehicle to be active - the car to record the car data against.
+ * @param man - the car manufacturer
+ * @param mod - the car model
+ * @param year - the cars year
+ * @param vehicle_id - the global id of the vehicle
  */
   $scope.setActive = function(man, mod, year, vehicle_id)
   {
