@@ -3,6 +3,16 @@
     background-color: #444444;
 }
 
+.loading-container .loading {
+    padding: 10px;
+    border-radius: 50px;
+    background-color: rgb(255, 255, 255);
+    color: #0c60ee;
+    text-align: center;
+    text-overflow: ellipsis;
+    font-size: 15px;
+}
+
 body {
   cursor: url('http://ionicframework.com/img/finger.png'), auto;
 }
