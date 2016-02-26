@@ -1,9 +1,9 @@
-<ion-view view-title="Drive">
-  <ion-content style="background-color: #444">
+<ion-view view-title=" <img src='img/logo-white-small.png' height='30px' style='margin-top:5px'>">
+  <ion-content style="background-color: #fff">
 
 <div ng-if="show === true">
     <ion-item class="item-thumbnail-left item-light">
-     <img src="img/{{vehicle.carData.make.name}}.png">
+     <img ng-src="img/{{vehicle.carData.make.name}}.png">
       <h2 class="dark">{{vehicle.carData.make.name}} {{vehicle.carData.model.name}}</h2>
       <h4 class="dark">{{vehicle.carData.year.year}} {{vehicle.carData.categories.vehicleStyle}}</h4>
       <h4 class="dark">{{vehicle.carData.engine.size}}L, {{vehicle.carData.engine.horsepower}}hp</h4>
@@ -14,7 +14,7 @@
 
     <a href="#/app/vehicles" class="button button-balanced button-full icon ion-ios-refresh-empty"> Switch Vehicle</a>
 
-<div class="item item-light" style="background: #444; border: 0px">
+<div class="item item-light" style="background: #fff; border: 0px">
 <div class="wrapper" ng-click="setupBluetoothConnection()">
   <div class="inner">
     <span></span> 
@@ -25,8 +25,6 @@
 <span class="light icon ion-power"> {{status}}</span>
 </div>
 </div>
-
-
 
     </ion-content>
 </ion-view>
