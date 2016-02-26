@@ -4,6 +4,7 @@ angular.module('starter')
 
 $scope.date = new Date();
 
+// Change the save/next button text depending on if the setup has been completed or not
 if(StorageService.isSetupComplete() === true)
 {
 	$scope.buttonText = "Done";
@@ -13,26 +14,30 @@ else
 	$scope.buttonText = "Finish";
 }
 
+// create the date picker properties
 $scope.datepickerObject = {
-      titleLabel: 'Date of Birth',  //Optional
-      todayLabel: '', //Optional
-      setLabel: 'Done',  //Optional
-      setButtonType : 'button-balanced',  //Optional
-      inputDate: new Date(),  //Optional
-      showTodayButton: 'true', //Optional
-      mondayFirst: true,  //Optional
-      templateType: 'modal', //Optional
-      modalHeaderColor: 'bar-balanced', //Optional
-      modalFooterColor: 'bar-balanced', //Optional
-      from: new Date(1900, 1, 1), //Optional
-      to: new Date(),  //Optional
-      dateFormat: 'DD-MM-YYYY', //Optional
-      closeOnSelect: false, //Optional
-      callback: function (val) {  //Mandatory
+      titleLabel: 'Date of Birth',
+      todayLabel: '', 
+      setLabel: 'Done',
+      setButtonType : 'button-balanced', 
+      inputDate: new Date(), 
+      showTodayButton: false,
+      mondayFirst: true, 
+      templateType: 'modal',
+      modalHeaderColor: 'bar-balanced',
+      modalFooterColor: 'bar-balanced',
+      from: new Date(1900, 1, 1),
+      to: new Date(), 
+      dateFormat: 'DD-MM-YYYY', 
+      closeOnSelect: false, 
+      callback: function (val) { 
         $scope.saveDateOfBirth(val);
       }
     };
 
+/**
+ * This method will save the date to local storage in a certain format.
+ */
 $scope.saveDateOfBirth = function(date)
 	{
 		$scope.date = date;
@@ -46,6 +51,11 @@ $scope.saveDateOfBirth = function(date)
 		StorageService.saveDateOfBirth(formattedDate);
 	}
 
+/**
+ * This method will decide the routing depending if the app setup has been complete.
+ * If the app setup has been complete, then the used has edited the setting via the 
+ * settings menu - so return to the settings menu when they hit save.
+ */
 $scope.next = function()
 	{
 		if(StorageService.isSetupComplete() === true)

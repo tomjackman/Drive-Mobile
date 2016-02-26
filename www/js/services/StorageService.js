@@ -36,6 +36,7 @@ angular.module('starter')
             var gender = localStorage.getItem('gender');
             var country = localStorage.getItem('country');
 
+            // REST call to add a new vehicle + driver
             $http.post('http://192.168.43.107:8080/Drive/api/addNewVehicle', { dateOfBirth: dateOfBirth, gender: gender, country: country, carData: carData}, {
             ignoreAuthModule: true}).success(function(data) {
               // Saved to the cloud successfully

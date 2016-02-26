@@ -4,6 +4,9 @@ angular.module('starter')
 
 $scope.chosenManufacturer = "";
 
+  /**
+   * This method will fetch all vehicle makes from Edmunds API
+   */
   $scope.getVehicleMakes = function()
   {
     $ionicLoading.show({
@@ -16,6 +19,9 @@ $scope.chosenManufacturer = "";
     });
   }
 
+  /**
+   * This method will fetch all vehicle models for a particular make from Edmunds API
+   */
   $scope.getVehicleModels = function()
   {
     $ionicLoading.show({
@@ -30,6 +36,9 @@ $scope.chosenManufacturer = "";
     });
   }
 
+  /**
+   * This method will fetch all the years that a certain vehicle was made makes from Edmunds API
+   */
   $scope.getVehicleYears = function()
   {
     $ionicLoading.show({
@@ -44,6 +53,9 @@ $scope.chosenManufacturer = "";
     });
   }
 
+  /**
+   * This method will fetch all the styles for a certain vehicle for a particular year from Edmunds API
+   */
   $scope.getVehicleStyles = function()
   {
     $ionicLoading.show({
@@ -58,6 +70,9 @@ $scope.chosenManufacturer = "";
     });
   }
 
+  /**
+   * This method will fetch additional data for the selected vehicle to show in the view.
+   */
   $scope.getFinalVehicle = function()
   {
     $scope.manufacturer = localStorage.getItem('chosenManufacturer');
@@ -79,6 +94,9 @@ $scope.chosenManufacturer = "";
     });
   }
 
+  /**
+   * This method will store the car manufacturer and go to the model selection view
+   */
   $scope.chooseManufacturer = function(make)
   {
 
@@ -86,6 +104,9 @@ $scope.chosenManufacturer = "";
     $state.go('app.addVehicleModel');
   }
 
+  /**
+   * This method will store the car model and go to the year selection view
+   */
   $scope.chooseModel = function(model)
   {
 
@@ -93,6 +114,9 @@ $scope.chosenManufacturer = "";
     $state.go('app.addVehicleYear');
   }
 
+  /**
+   * This method will store the car year and go to the style selection view
+   */
    $scope.chooseYear = function(year)
   {
 
@@ -100,6 +124,9 @@ $scope.chosenManufacturer = "";
     $state.go('app.addVehicleStyle');
   }
 
+  /**
+   * This method will store the car style and go to the final car view
+   */
   $scope.chooseStyle = function(style, id, carData)
   {
 
@@ -109,6 +136,9 @@ $scope.chosenManufacturer = "";
     $state.go('app.finalVehicle');
   }
 
+  /**
+   * This method will send a request to the storage service to add the vehicle.
+   */
   $scope.addNewVehicle = function()
   {	
 
@@ -116,13 +146,22 @@ $scope.chosenManufacturer = "";
 
   	StorageService.addVehicle(carData);
 
+    // decide the routing depending if the app setup has been complete.
     if(StorageService.isSetupComplete() === true)
     {
       $state.go('app.dashboard');
+      $ionicHistory.nextViewOptions({
+                      disableAnimate: true,
+                      disableBack: true
+                    });
     }
     else
     {
       $state.go('app.dashboard');
+      $ionicHistory.nextViewOptions({
+                      disableAnimate: true,
+                      disableBack: true
+                    });
     }
   }
 
