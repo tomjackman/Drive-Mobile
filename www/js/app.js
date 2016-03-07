@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 var starter = angular.module('starter', ['ionic','ngCordova', 'ionic-datepicker'])
 
-.run(function($ionicPlatform, BluetoothService, $ionicHistory) {
+.run(function($ionicPlatform, BluetoothService, $ionicHistory, $state) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -29,7 +29,7 @@ var starter = angular.module('starter', ['ionic','ngCordova', 'ionic-datepicker'
       vehicleList = [];
       localStorage.setItem('vehicleList', JSON.stringify(vehicleList));
 
-      location.replace("#/app/obdConnection");
+      $state.go('app.obdConnection');
                     $ionicHistory.nextViewOptions({
                       disableAnimate: true,
                       disableBack: true
