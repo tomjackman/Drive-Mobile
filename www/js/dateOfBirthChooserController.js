@@ -1,6 +1,6 @@
 angular.module('starter')
 
-.controller('dateOfBirthChooserController', function($scope, $stateParams, $ionicHistory, StorageService) {
+.controller('dateOfBirthChooserController', function($scope, $stateParams, $ionicHistory, StorageService, $state) {
 
 $scope.date = new Date();
 
@@ -60,7 +60,7 @@ $scope.next = function()
 	{
 		if(StorageService.isSetupComplete() === true)
 		{
-			location.replace("#/app/settings");
+			$state.go('app.settings')
                     $ionicHistory.nextViewOptions({
                       disableAnimate: true,
                       disableBack: true
@@ -68,7 +68,7 @@ $scope.next = function()
 		}
 		else
 		{
-			window.location.href = '#/app/addVehicle';
+			$state.go('app.addVehicleMake')
 		}
 	}
 });

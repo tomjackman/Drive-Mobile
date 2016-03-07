@@ -1,6 +1,6 @@
 angular.module('starter')
 
-.controller('obdConnectionController', function($scope, $cordovaBluetoothSerial, $stateParams, BluetoothService, StorageService) {
+.controller('obdConnectionController', function($scope, $cordovaBluetoothSerial, $stateParams, BluetoothService, StorageService, $state, $ionicHistory) {
 
 $scope.search = "Search";
 $scope.devices = []
@@ -43,7 +43,7 @@ $scope.listDevices = function()
  */
 $scope.chooseDevice = function(mac_address)
 {
-  localStorage.setItem('mac_address', macAddress); // store the address of the device
+  localStorage.setItem('mac_address', mac_address); // store the address of the device
 }
 
 /**
@@ -55,7 +55,7 @@ $scope.next = function()
 {
   if(StorageService.isSetupComplete() === true)
     {
-      location.replace("#/app/settings");
+      $state.go('app.settings')
                     $ionicHistory.nextViewOptions({
                       disableAnimate: true,
                       disableBack: true
@@ -63,7 +63,7 @@ $scope.next = function()
     }
     else
     {
-      window.location.href = '#/app/genderChooser';
+      $state.go('app.genderChooser');
     }
 }
 

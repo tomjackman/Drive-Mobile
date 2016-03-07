@@ -157,11 +157,7 @@ $scope.chosenManufacturer = "";
     }
     else
     {
-      $state.go('app.dashboard');
-      $ionicHistory.nextViewOptions({
-                      disableAnimate: true,
-                      disableBack: true
-                    });
+      StorageService.setupComplete();
     }
   }
 

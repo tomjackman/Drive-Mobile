@@ -67,7 +67,6 @@ angular.module('starter')
               return true; // can write
           },
           function() {
-            alert("write failed");
               return false; // can't write
           }
       );
