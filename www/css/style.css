@@ -1,10 +1,39 @@
 
+.hue {
+  background-image: -webkit-linear-gradient(135deg, hsla(108, 78%, 50%, 1), hsla(108, 78%, 50%, 1));
+  background-image: linear-gradient(-45deg, hsla(108, 78%, 50%, 1), hsla(108, 78%, 50%, 1));
+  height:100vh; 
+  width:100%; 
+  padding:120px 0;
+  text-align: center;
+  -webkit-animation: hue-rot 4s infinite alternate;
+          animation: hue-rot 4s infinite alternate;
+}
+
+@-webkit-keyframes hue-rot {
+ 100% {
+    -webkit-filter: hue-rotate(360deg);
+            filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes hue-rot {
+ 100% {
+    -webkit-filter: hue-rotate(360deg);
+            filter: hue-rotate(360deg);
+  }
+}
+
+.bar .title {
+    font-size: 12px;
+}
+
 .ion-content {
     background-color: #444444;
 }
 
 .loading-container .loading {
-    padding: 10px;
+    padding: 15px;
     border-radius: 50px;
     background-color: rgb(255, 255, 255);
     color: #0c60ee;
@@ -15,89 +44,4 @@
 
 body {
   cursor: url('http://ionicframework.com/img/finger.png'), auto;
-}
-
-* { box-sizing: border-box; }
-
-.wrapper {
-  width: 150px;
-  height: 150px;
-  margin: 80px auto;
-  border-radius: 50%;
-  background: linear-gradient(#fff, #444, #fff);
-  position: relative;
-  cursor: pointer;
-  padding: 20px;
-}
-
-.wrapper:after {
-  content: ""; 
-  position: absolute;
-  left: -20px;
-  right: -20px;
-  top: -20px;
-  bottom: -20px;
-  z-index: -;
-  border-radius: inherit;
-
-}
-
-.inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(#ddd, #ddd);
-  display: block;
-
-}
-
-.inner:after {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  background: white;
-  background: linear-gradient(#444, #fff);
-  left: 50%;
-  top: 50%;
-  content: "";
-  border-radius: inherit;
-  margin: -25px 0 0 -25px;
-} 
-
-.inner:before {
-  position: absolute;
-  content: "";
-  width: 40px;
-  height: 40px;
-  left: 50%;
-  top: 50%;
-  border-radius: inherit;
-  background: #444;
-  margin: -20px 0 0 -20px;
-  z-index: 2;
-}
-
-.inner span {
-  display: block;
-  width: 20px;
-  height: 20px;
-  background: rgba(0, 0, 0, 0);
-  position: absolute;
-  left: 50%;
-  margin-left: -10px;
-  top: 25px;
-  z-index: 3;
-  position: relative;
-}
-
-.inner span:before {
-  content: "";
-  position: absolute;
-  width: 6px;
-  height: 25px;
-  background: linear-gradient(#444, #fff);
-  border-radius: 10px;
-  left: 50%;
-  margin-left: -3px;
 }
