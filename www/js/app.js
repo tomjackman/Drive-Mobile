@@ -91,17 +91,7 @@ var starter = angular.module('starter', ['ionic','ngCordova', 'ionic-datepicker'
         }
       }
     })
-
-    .state('app.sensorQuerying', {
-      url: '/sensorQuerying',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/sensorQuerying.html',
-          controller: 'sensorQueryingController'
-        }
-      }
-    })
-
+    
     .state('app.genderChooser', {
       url: '/genderChooser',
       views: {
