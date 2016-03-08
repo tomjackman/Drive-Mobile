@@ -9,22 +9,18 @@
 
   	 <ion-item class="item-stable item-icon-left card" href="#/app/genderChooser">
   	 <i class="icon ion-ios-person-outline"></i> Gender
-     <h4 class="balanced">{{gender}}</h4>
+     <h4 class="balanced" style="text-transform: capitalize">{{gender}}</h4>
   	 </ion-item>
 
      <ion-item class="item-stable item-icon-left card" href="#/app/dateOfBirthChooser">
      <i class="icon ion-ios-calendar-outline"></i> Date of Birth
-     <h4 class="balanced">{{dateOfBirth}}</h4>
+     <h4 class="balanced">{{date.dayOfMonth}}/{{date.month}}/{{date.year}}</h4>
      </ion-item>
 
      <ion-item class="item-stable item-icon-left card" href="#/app/countryChooser">
      <i class="icon ion-earth"></i> Country
      <h4 class="balanced">{{country}}</h4>
      </ion-item>
-
-  	  <ion-item class="item-stable item-icon-left card" href="#/app/sensorQuerying">
-  	 <i class="icon ion-ios-timer-outline"></i> Sensor Querying Interval Times <h4 class="balanced">Edit Timing</h4>
-  	</ion-item>
 
   </ion-list>
 

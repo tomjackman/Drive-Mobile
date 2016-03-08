@@ -1,27 +1,10 @@
 
 .hue {
-  background-image: -webkit-linear-gradient(135deg, hsla(108, 78%, 50%, 1), hsla(108, 78%, 50%, 1));
-  background-image: linear-gradient(-45deg, hsla(108, 78%, 50%, 1), hsla(108, 78%, 50%, 1));
   height:100vh; 
   width:100%; 
   padding:120px 0;
   text-align: center;
-  -webkit-animation: hue-rot 4s infinite alternate;
-          animation: hue-rot 4s infinite alternate;
-}
 
-@-webkit-keyframes hue-rot {
- 100% {
-    -webkit-filter: hue-rotate(360deg);
-            filter: hue-rotate(360deg);
-  }
-}
-
-@keyframes hue-rot {
- 100% {
-    -webkit-filter: hue-rotate(360deg);
-            filter: hue-rotate(360deg);
-  }
 }
 
 .bar .title {
