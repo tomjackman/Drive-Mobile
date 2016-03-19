@@ -1,6 +1,6 @@
 angular.module('starter')
 
-.controller('genderChooserController', function($scope, $stateParams, StorageService, $ionicHistory, $state) {
+.controller('genderChooserController', function($scope, $stateParams, StorageService, $ionicHistory, $state, $rootScope) {
 
 // Change the save/next button text depending on if the setup has been completed or not
 	if(StorageService.isSetupComplete() === true)
@@ -28,6 +28,7 @@ angular.module('starter')
  */
 	$scope.next = function()
 	{
+		$rootScope.updateMenuDetails();
 		if(StorageService.isSetupComplete() === true)
 		{
 			$state.go('app.settings')

@@ -1,8 +1,8 @@
 angular.module('starter')
 
-.controller('dateOfBirthChooserController', function($scope, $stateParams, $ionicHistory, StorageService, $state) {
+.controller('dateOfBirthChooserController', function($scope, $stateParams, $ionicHistory, StorageService, $state, $rootScope) {
 
-$scope.date = new Date();
+$scope.date = JSON.parse(localStorage.getItem('dateOfBirth'));
 
 // Change the save/next button text depending on if the setup has been completed or not
 if(StorageService.isSetupComplete() === true)
@@ -40,15 +40,12 @@ $scope.datepickerObject = {
  */
 $scope.saveDateOfBirth = function(date)
 	{
-		$scope.date = date;
+      $scope.date = {'year': date.getFullYear(),
+                       'month': date.getMonth(),
+                       'dayOfMonth': date.getDate()
+                      }
 
-    var month = $scope.date.getUTCMonth() + 1; //months from 1-12
-    var day = $scope.date.getUTCDate();
-    var year = $scope.date.getUTCFullYear();
-
-    var formattedDate = year + "-" + month + "-" + day;
-
-		StorageService.saveDateOfBirth(formattedDate);
+		StorageService.saveDateOfBirth($scope.date);
 	}
 
 /**
@@ -58,6 +55,7 @@ $scope.saveDateOfBirth = function(date)
  */
 $scope.next = function()
 	{
+    $rootScope.updateMenuDetails()
 		if(StorageService.isSetupComplete() === true)
 		{
 			$state.go('app.settings')

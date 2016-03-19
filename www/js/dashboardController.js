@@ -4,16 +4,16 @@
 
 angular.module('starter')
 
-.controller('dashboardController', function($cordovaBluetoothSerial, $scope, BluetoothService, $cordovaToast, $timeout, $interval, StorageService) {
+.controller('dashboardController', function($cordovaBluetoothSerial, $scope, BluetoothService, $cordovaToast, $timeout, $interval, StorageService, $rootScope) {
 
-$scope.status = "Tap to Start";
+$scope.status = "Tap to Start Journey";
 $scope.recording = false;
 $scope.sensorData = [];
 
 /**
  * Checks if setup is complete before attempting to show the active vehicle
  */
-$scope.checkDisplay = function()
+$rootScope.checkDisplay = function()
 {
     if(localStorage.getItem('setup_complete') === null)
     {
@@ -43,7 +43,7 @@ $scope.checkDisplay = function()
       }
     }
 
-    $scope.checkDisplay();
+    $rootScope.checkDisplay();
 
 /**
  * Writes data to the bluetooth buffer
@@ -146,6 +146,12 @@ $scope.checkDisplay = function()
   {
     if($scope.recording === false)
     {
+      // Remove data from the last journey
+      journeyData = [];
+      localStorage.setItem("journeyData", JSON.stringify(journeyData));
+      localStorage.setItem("startTime", "");
+      localStorage.setItem("endTime", "");
+
       $scope.recording = true;
       $scope.status = "Recording.. Tap to Stop.";
       $cordovaToast.show('Recording Starting in 10 Seconds.', 'short', 'center');
@@ -161,114 +167,172 @@ $scope.checkDisplay = function()
                       }
 
 
-        // store the date in localstorage
-        localStorage.setItem('startTime', JSON.stringify(startTime));  
+      // store the date in localstorage
+      localStorage.setItem('startTime', JSON.stringify(startTime));  
 
-      // Clear bluetooth buffer
-      $cordovaBluetoothSerial.clear();
+      // Turn off echo
+      $cordovaBluetoothSerial.write("ATE0\r");
+
+      // Adaptive timing mode 2
+       $timeout(function()
+       {
+          $cordovaBluetoothSerial.write("ATAT2\r");
+       },100);
+
+      // Turn off line feeds
+       $timeout(function()
+       {
+          $cordovaBluetoothSerial.write("ATL0\r");
+       },250);
+
+       // Turn off spaces
+       $timeout(function()
+       {
+          $cordovaBluetoothSerial.write("ATS0\r");
+       },350);
 
       // Write to OBD Device - Initial Search Phase
-      //$scope.bluetoothWrite("ATSP0\r"); 
+      $timeout(function()
+       {
+         $cordovaBluetoothSerial.write("010C1\r");
+       },450);
 
-      // engine related sensors
-      $scope.bluetoothWrite("010C\r"); // Engine rpm
-      $scope.bluetoothWrite("0104\r"); // Calculated engine load
-      $scope.bluetoothWrite("010D\r"); // Vehicle speed 
-      $scope.bluetoothWrite("0143\r"); // Absolute load
-      $scope.bluetoothWrite("0161\r"); // Demand engine torque
-      $scope.bluetoothWrite("0162\r"); // Actual engine torque
-      $scope.bluetoothWrite("0163\r"); // Engine reference torque
-
-      // temperature sensors
-      $scope.bluetoothWrite("0105\r"); // Engine Coolant Temperature
-      $scope.bluetoothWrite("010F\r"); // Intake Air Temperature
-      $scope.bluetoothWrite("013C\r"); // Catylyst Temperature, Bank 1, Sensor 1
-      $scope.bluetoothWrite("013D\r"); // Catylyst Temperature, Bank 2, Sensor 1
-      $scope.bluetoothWrite("013E\r"); // Catylyst Temperature, Bank 1, Sensor 2
-      $scope.bluetoothWrite("013F\r"); // Catylyst Temperature, Bank 2, Sensor 2
-      $scope.bluetoothWrite("0146\r"); // Ambient Air Temperature
-      $scope.bluetoothWrite("015C\r"); // Engine Oil Temperature
-
-      // throttle / pedal sensors
-      $scope.bluetoothWrite("0111\r"); // Throttle position
-      $scope.bluetoothWrite("0145\r"); // Relative throttle position
-      $scope.bluetoothWrite("014C\r"); // Commanded throttle actuator
-      $scope.bluetoothWrite("015A\r"); // Relative accelerator pedal position
-
-      // exhaust system
-      $scope.bluetoothWrite("0114\r"); // First lambda sensor
-      $scope.bluetoothWrite("0115\r"); // Second lambda sensor
-
-      // intake / fuel system sensors
-      $scope.bluetoothWrite("010A\r"); // Fuel pressure
-      $scope.bluetoothWrite("015D\r"); // Fuel Injection Timing
-      $scope.bluetoothWrite("015E\r"); // Engine Fuel Rate
-      $scope.bluetoothWrite("0133\r"); // Barometric pressure
-      $scope.bluetoothWrite("010B\r"); // Intake manifold absolute pressure
-      $scope.bluetoothWrite("0110\r"); // MAF air flow rate
-
-       // Clear bluetooth buffer
-      $cordovaBluetoothSerial.clear();
-
-      // Bluetooth buffer read loop - call to read sensor value returned from car
-      $scope.readLoop = $interval(function() {
-               $scope.bluetoothRead();
-            }, 100);
-     
       $timeout(function()
         {
+            // Bluetooth buffer read loop - read responses from the vehicle every 70ms
+            $scope.readLoop = $interval(function() {
+               $scope.bluetoothRead();
+            }, 50);
 
-            // Query loop for DTC's
-            $scope.troubleCodesLoop = $interval(function() {
-              // $scope.bluetoothWrite("03\r"); // Request trouble codes
-            }, 60000);
+            // 9 Sensors to be Queried Every 9 seconds
+            $scope.slotOneSensors = ["010A1\r", // Fuel Pressure
+                                      "010B1\r", // Intake Manifold Absolute Pressure
+                                      "01101\r", // MAF Air Flow Rate
+                                      "01331\r", // Barometric Pressure
+                                      "01431\r", // Absolute Load Value
+                                      "01451\r", // Relative Throttle Position
+                                      "014C1\r", // Commanded Throttle Atuator
+                                      "015A1\r", // Relative Accelerator Pedal Position
+                                      "015D1\r"] // Fuel Injection Timing
+            $scope.slotOneCount = 0                                 
 
-            // Query Loop for Engine related sensors
-            $scope.engineSensorLoop = $interval(function() {
-              $scope.bluetoothWrite("010C\r"); // Engine rpm
-              $scope.bluetoothWrite("0104\r"); // Calculated engine load
-              $scope.bluetoothWrite("010D\r"); // Vehicle speed 
-              $scope.bluetoothWrite("0143\r"); // Absolute load
-              $scope.bluetoothWrite("0161\r"); // Demand engine torque
-              $scope.bluetoothWrite("0162\r"); // Actual engine torque
-              $scope.bluetoothWrite("0163\r"); // Engine reference torque
-            }, 1000);
-          
-          // Query Loop for Temperature related sensors
-          $scope.temperatureSensorLoop = $interval(function() {
-              $scope.bluetoothWrite("0105\r"); // Engine Coolant Temperature
-              $scope.bluetoothWrite("010F\r"); // Intake Air Temperature
-              $scope.bluetoothWrite("013C\r"); // Catylyst Temperature, Bank 1, Sensor 1
-              $scope.bluetoothWrite("013D\r"); // Catylyst Temperature, Bank 2, Sensor 1
-              $scope.bluetoothWrite("013E\r"); // Catylyst Temperature, Bank 1, Sensor 2
-              $scope.bluetoothWrite("013F\r"); // Catylyst Temperature, Bank 2, Sensor 2
-              $scope.bluetoothWrite("0146\r"); // Ambient Air Temperature
-              $scope.bluetoothWrite("015C\r"); // Engine Oil Temperature
-            }, 10000);
+            // 8 Sensors to be Queried Every 8 seconds
+            $scope.slotTwoSensors = ["01051\r", // Engine Coolant Temperature
+                                      "010F1\r", // Intake Air Temperature
+                                      "013C1\r", // Catalyst Temperature, Bank 1, Sensor 1
+                                      "013D1\r", // Catalyst Temperature, Bank 2, Sensor 1
+                                      "013E1\r", // Catalyst Temperature, Bank 1, Sensor 2
+                                      "013F1\r", // Catalyst Temperature, Bank 2, Sensor 2
+                                      "01461\r", // Ambient Air Temperature
+                                      "015C1\r"] // Engine Oil Temperature
 
-          // Query Loop for Throttle / pedal sensors
-            $scope.throttlePedalSensorLoop = $interval(function() {
-              $scope.bluetoothWrite("0111\r"); // Throttle position
-              $scope.bluetoothWrite("0145\r"); // Relative throttle position
-              $scope.bluetoothWrite("014C\r"); // Commanded throttle actuator
-              $scope.bluetoothWrite("015A\r"); // Relative accelerator pedal position
-            }, 3000);
+            $scope.slotTwoCount = 0
 
-            // Exhaust system
-            $scope.exhaustSystemSensorLoop = $interval(function() {
-               $scope.bluetoothWrite("0114\r"); // First lambda sensor
-               $scope.bluetoothWrite("0115\r"); // Second lambda sensor
+            // 4 Sensors to be Queried Every 4 seconds
+            $scope.slotThreeSensors = ["01611\r", // Drivers Demand Engine Torque
+                                       "01621\r", // Actual Engine Torque
+                                       "01631\r", // Engine Refeence Torque
+                                       "015E1\r"] // Engine Fuel Rate
 
-            }, 500);
+            $scope.slotThreeCount = 0
 
-            // Intake / fuel system sensors
-            $scope.intakeFuelSensorLoop = $interval(function() {
-                $scope.bluetoothWrite("010A\r"); // Fuel pressure
-                $scope.bluetoothWrite("015D\r"); // Fuel Injection Timing
-                $scope.bluetoothWrite("015E\r"); // Engine Fuel Rate
-                $scope.bluetoothWrite("0133\r"); // Barometric pressure
-                $scope.bluetoothWrite("010B\r"); // Intake manifold absolute pressure
-                $scope.bluetoothWrite("0110\r"); // MAF air flow rate
+            // Diagnostic Trouble Codes to be Queried Every 20 seconds
+            $scope.slotFourSensors = ["03\r"] // Diagnostic Trouble Codes
+
+            $scope.slotFourCount = 0
+
+            // Query Loop for sensors
+            $scope.querySensorLoop = $interval(function() {
+
+              $scope.bluetoothWrite("010C1\r"); // Engine rpm
+
+              $timeout(function()
+              {
+                $scope.bluetoothWrite("01041\r"); // Calculated engine load
+              },100);
+
+              $timeout(function()
+              {
+                $scope.bluetoothWrite("010D1\r"); // Vehicle speed
+              },200);
+
+              $timeout(function()
+              {
+                $scope.bluetoothWrite("01141\r"); // Oxygen Sensor 1 Voltage
+              },300);
+
+              $timeout(function()
+              {
+                $scope.bluetoothWrite("01151\r"); // Oxygen Sensor 2 Voltage
+              },400);
+
+              $timeout(function()
+              {
+                $scope.bluetoothWrite("01111\r"); // Throttle Position
+              },500);
+
+              $timeout(function()
+              {
+                $scope.bluetoothWrite($scope.slotOneSensors[$scope.slotOneCount]); // Slot 1
+              },600);
+
+              $timeout(function()
+              {
+                $scope.bluetoothWrite($scope.slotTwoSensors[$scope.slotTwoCount]); // Slot 2
+              },700);
+
+              $timeout(function()
+              {
+                $scope.bluetoothWrite($scope.slotThreeSensors[$scope.slotThreeCount]); // Slot 3
+              },800);
+
+              if($scope.slotFourCount === 0)
+              {
+                $timeout(function()
+                {
+                  $scope.bluetoothWrite($scope.slotFourSensors[0]); // Slot 4
+                },900);
+              }
+
+
+
+              if($scope.slotOneCount === 8) // If at end of Slot 1 Sensor Array
+              {
+                  $scope.slotOneCount = 0 // Go back to first sensor in the list
+              }
+              else // Otherwise Move Onto Next Sensor In The List
+              {
+                $scope.slotOneCount++
+              }
+
+              if($scope.slotTwoCount === 7) // If at end of Slot 2 Sensor Array
+              {
+                  $scope.slotTwoCount = 0 // Go back to first sensor in the list
+              }
+              else // Otherwise Move Onto Next Sensor In The List
+              {
+                $scope.slotTwoCount++
+              }
+
+              if($scope.slotThreeCount === 3) // If at end of Slot 3 Sensor Array
+              {
+                  $scope.slotThreeCount = 0 // Go back to first sensor in the list
+              }
+              else // Otherwise Move Onto Next Sensor In The List
+              {
+                $scope.slotThreeCount++
+              }
+
+              if($scope.slotFourCount === 19) // If at end of Slot 4 Sensor Array
+              {
+                  $scope.slotFourCount = 0 // Go back to first sensor in the list
+              }
+              else // Otherwise Move Onto Next Sensor In The List
+              {
+                $scope.slotFourCount++
+              }
+
+
             }, 1000);
           }
         ,10000);
@@ -276,12 +340,7 @@ $scope.checkDisplay = function()
     else
     {   
         // Cancel all car sensor querying
-        $interval.cancel($scope.troubleCodesLoop);
-        $interval.cancel($scope.engineSensorLoop);
-        $interval.cancel($scope.temperatureSensorLoop);
-        $interval.cancel($scope.throttlePedalSensorLoop);
-        $interval.cancel($scope.exhaustSystemSensorLoop);
-        $interval.cancel($scope.intakeFuelSensorLoop);
+        $interval.cancel($scope.querySensorLoop);
         $interval.cancel($scope.readLoop);
 
 
@@ -299,7 +358,7 @@ $scope.checkDisplay = function()
         // store the date in localstorage
         localStorage.setItem('endTime', JSON.stringify(endTime));
 
-        // store the data in localstorage
+        // store the journey data in localstorage
         localStorage.setItem('journeyData', JSON.stringify($scope.sensorData));
 
         
