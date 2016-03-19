@@ -22,12 +22,18 @@ var starter = angular.module('starter', ['ionic','ngCordova', 'ionic-datepicker'
    //   BluetoothService.connectToDevice(localStorage.getItem('mac_address'));
    // }
 
+   // Keep screen on
+    window.plugins.insomnia.keepAwake()
+
     if(localStorage.getItem('setup_complete') === null)
     {
+      localStorage.setItem('serverAddress', "http://192.168.43.180:8080");
       journeyData = [];
       localStorage.setItem('journeyData', JSON.stringify(journeyData));
       vehicleList = [];
       localStorage.setItem('vehicleList', JSON.stringify(vehicleList));
+      followingList = [];
+      localStorage.setItem('followingList', JSON.stringify(followingList));
 
       $state.go('app.obdConnection');
                     $ionicHistory.nextViewOptions({
@@ -91,7 +97,7 @@ var starter = angular.module('starter', ['ionic','ngCordova', 'ionic-datepicker'
         }
       }
     })
-    
+
     .state('app.genderChooser', {
       url: '/genderChooser',
       views: {
