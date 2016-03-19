@@ -11,6 +11,11 @@
     font-size: 12px;
 }
 
+.platform-android .bar .title {
+    font-size: 12px;
+    line-height: 44px;
+}
+
 .ion-content {
     background-color: #444444;
 }
