@@ -4,7 +4,7 @@
 
 angular.module('starter')
 
-.factory('StorageService', function($timeout, $ionicActionSheet, $cordovaBluetoothSerial, $http, $ionicLoading, $state) {
+.factory('StorageService', function($timeout, $ionicPopup, $cordovaBluetoothSerial, $http, $ionicLoading, $state, $rootScope, $ionicHistory) {
 
   return {
 
@@ -26,7 +26,7 @@ angular.module('starter')
      * This method will save the birth year details
      */
       saveDateOfBirth: function(date){
-        localStorage.setItem('dateOfBirth', date);
+        localStorage.setItem('dateOfBirth', JSON.stringify(date));
       },
 
       /**
@@ -42,12 +42,12 @@ angular.module('starter')
      */
       addVehicle: function(carData){
 
-            var dateOfBirth = localStorage.getItem('dateOfBirth'); 
+            var dateOfBirth = JSON.parse(localStorage.getItem('dateOfBirth')); 
             var gender = localStorage.getItem('gender');
             var country = localStorage.getItem('country');
 
             // REST call to add a new vehicle + driver
-            $http.post('http://192.168.43.107:8080/Drive/api/addNewVehicle', { dateOfBirth: dateOfBirth, gender: gender, country: country, carData: carData}, {
+            $http.post(localStorage.getItem('serverAddress') + '/Drive/api/addNewVehicle', { dateOfBirth: dateOfBirth, gender: gender, country: country, carData: carData}, {
             ignoreAuthModule: true}).success(function(data) {
               // Saved to the cloud successfully
               if(data.status.name === "CREATED")
@@ -61,6 +61,9 @@ angular.module('starter')
               localStorage.setItem('vehicleList', JSON.stringify(vehicles));
               localStorage.setItem('active_vehicle', id);
 
+              // update the active vehicle on the dashboard
+              $rootScope.checkDisplay();
+
               // Remove the contents of the cached vehicle entity choices
               localStorage.setItem('chosenManufacturer', "");
               localStorage.setItem('chosenModel', "");
@@ -68,32 +71,31 @@ angular.module('starter')
               localStorage.setItem('chosenStyleId', "");
               localStorage.setItem('chosenYear', "");
 
-              // Popup to show user that the data was sent to the cloud sucessfully
-                 var hideSheet = $ionicActionSheet.show({
-                   titleText: '<i class="icon ion-ios-cloud-upload-outline"></i> Saved Vehicle to the Cloud'
-                      });
-
-                 // hide the popup after seven seconds
-                 $timeout(function() {
-                   hideSheet();
-                 }, 7000);
+              // car added
+               var alertPopup = $ionicPopup.alert({
+                 title: 'Vehicle Added',
+                 template: '<div align="center"><img ng-src="img/car.png" height="150" width="150"></div>'
+               });
 
               }
               else
               {
-                // Popup to show user that the data sent to the cloud was invalid
-                 var hideSheet = $ionicActionSheet.show({
-                   titleText: '<i class="icon ion-ios-close-outline"></i> Invalid or Missing Data'
-                      });
+                // could not add car
+                var alertPopup = $ionicPopup.alert({
+                 title: 'Could Not Add Vehicle',
+                 template: '<div align="center"><img ng-src="img/car2.png" height="150" width="150"></div>'
+               });
 
-                 // hide the popup after seventy seconds
-                 $timeout(function() {
-                   hideSheet();
-                 }, 70000);
               }
 
-            }
-            // CANNOT REACH SERVER ERROR MESSAGE HERE
+            },
+            // Cannot contact server
+              function() {
+                  var alertPopup = $ionicPopup.alert({
+                 title: 'Could Not Contact Server',
+                 template: '<div align="center"><img ng-src="img/cloud.png" height="150" width="150"></div>'
+               });
+              }
             );
       },
 
@@ -108,46 +110,38 @@ angular.module('starter')
         var endTime = JSON.parse(localStorage.getItem("endTime"));
 
           // Send data to the web application
-            $http.post('http://192.168.43.107:8080/Drive/api/addNewJourney', { vehicleID: vehicleID, 
+            $http.post(localStorage.getItem('serverAddress') + '/Drive/api/addNewJourney', { vehicleID: vehicleID, 
               journeyData: journeyData, 
               startTime: startTime, 
               endTime: endTime}, {ignoreAuthModule: true}).success(function(data) {
               // Saved to the cloud successfully
               if(data.status.name === "CREATED")
               {
-
-              // Remove data from localstorage
-               journeyData = [];
-               localStorage.setItem("journeyData", JSON.stringify(journeyData));
-               localStorage.setItem("startTime", "");
-               localStorage.setItem("endTime", "");
-
-              // Popup to show user that the data was sent to the cloud sucessfully
-                 var hideSheet = $ionicActionSheet.show({
-                   titleText: '<i class="icon ion-ios-cloud-upload-outline"></i> Saved Journey to the Cloud'
-                      });
-
-                 // hide the popup after seven seconds
-                 $timeout(function() {
-                   hideSheet();
-                 }, 7000);
+              // journey added
+              var alertPopup = $ionicPopup.alert({
+                 title: 'Journey Added',
+                 template: '<div align="center"><img ng-src="img/journey.png" height="150" width="150"></div>'
+               });
 
               }
               else
               {
-                // Popup to show user that the data sent to the cloud was invalid
-                 var hideSheet = $ionicActionSheet.show({
-                   titleText: '<i class="icon ion-ios-close-outline"></i> Invalid or Missing Data'
-                      });
-
-                 // hide the popup after seventy seconds
-                 $timeout(function() {
-                   hideSheet();
-                 }, 70000);
+                // Cannot add journey
+                var alertPopup = $ionicPopup.alert({
+                 title: 'Could Not Add Journey',
+                 template: '<div align="center"><img ng-src="img/journey2.png" height="150" width="150"></div>'
+               });
               }
 
-            }
-            // CANNOT REACH SERVER ERROR MESSAGE HERE
+            },
+            // Cannot contact server
+              function() {
+                  var alertPopup = $ionicPopup.alert({
+                 title: 'Could Not Contact Server',
+                 template: '<div align="center"><img ng-src="img/cloud.png" height="150" width="150"></div>'
+               });
+              }
+
             );
       },
 
@@ -156,7 +150,12 @@ angular.module('starter')
      */
       setupComplete: function(){
         localStorage.setItem('setup_complete', 'true');
-        $state.go('dashboard');
+        $state.go('app.dashboard');
+        $ionicHistory.nextViewOptions({
+                      disableAnimate: true,
+                      disableBack: true
+                    });
+
       },
 
       /**
