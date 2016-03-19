@@ -1,6 +1,6 @@
 angular.module('starter')
 
-.controller('vehiclesController', function($scope, $state, $ionicHistory, $ionicModal, StorageService, $cordovaToast) {
+.controller('vehiclesController', function($scope, $state, $ionicHistory, StorageService, $cordovaToast, $rootScope) {
 
   var vehicles = localStorage.getItem('vehicleList');
   $scope.vehicles = JSON.parse(vehicles);
@@ -23,6 +23,7 @@ angular.module('starter')
   $scope.setActive = function(man, mod, year, vehicle_id)
   {
     localStorage.setItem('active_vehicle', vehicle_id);
+    $rootScope.checkDisplay();
     $cordovaToast.show(year + " " + man + " " + mod + " is now active." , 'long', 'center');
   }
 
