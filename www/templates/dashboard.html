@@ -7,21 +7,26 @@
       <h3 class="dark">{{vehicle.carData.make.name}} {{vehicle.carData.model.name}}</h3>
       <h5 class="dark">{{vehicle.carData.year.year}} {{vehicle.carData.categories.vehicleStyle}}</h5>
       <h5 class="dark">{{vehicle.carData.engine.size}}L, {{vehicle.carData.engine.horsepower}}hp</h5>
-      <h5 class="dark" style="text-transform: capitalize">{{vehicle.carData.transmission.transmissionType}}</h5>
       <h4 class="dark"><i class="icon ion-ios-cloud-outline"></i> {{vehicle.id}}</h4>
     </ion-item>
 </div>
 
     <a href="#/app/vehicles" class="button button-balanced button-full icon ion-ios-refresh-empty"> Switch Vehicle</a>
 
-<div class="hue" style="background-color: #1945A4">
+<div class="hue" style="background: linear-gradient(180deg, #3367d6, #0A9DC7)";>
 
 
- <img ng-src="img/start.png" ng-click="changeRecordingStatus()">
+<div ng-show="!recording">
+ <img ng-src="img/start.png" height="200" width="200" ng-click="changeRecordingStatus()">
+ </div>
+
+ <div ng-show="recording">
+ <img ng-src="img/stop.png" height="200" width="200" ng-click="changeRecordingStatus()">
+ </div>
 
 
 <div align="center">
-<span class="light icon ion-power"> {{status}}</span>
+<span class="light"> {{status}}</span>
 </div>
 </div>
 

@@ -1,23 +1,23 @@
 <ion-view view-title="Settings" cache-view="false">
-  <ion-content>
+  <ion-content style="background: linear-gradient(180deg, #3367d6, #0A9DC7)">
   
    <ion-list>
-  <ion-item class="item-stable item-icon-left card" href="#/app/obdConnction">
+  <ion-item class="item-light item-icon-left card" href="#/app/obdConnction">
   	 <i class="icon ion-ios-bolt-outline"></i> Change Default OBD Device 
      <h4 class="balanced">Current OBD Device - {{currentDevice}}</h4>
   	 </ion-item>
 
-  	 <ion-item class="item-stable item-icon-left card" href="#/app/genderChooser">
+  	 <ion-item class="item-light item-icon-left card" href="#/app/genderChooser">
   	 <i class="icon ion-ios-person-outline"></i> Gender
      <h4 class="balanced" style="text-transform: capitalize">{{gender}}</h4>
   	 </ion-item>
 
-     <ion-item class="item-stable item-icon-left card" href="#/app/dateOfBirthChooser">
+     <ion-item class="item-light item-icon-left card" href="#/app/dateOfBirthChooser">
      <i class="icon ion-ios-calendar-outline"></i> Date of Birth
      <h4 class="balanced">{{date.dayOfMonth}}/{{date.month}}/{{date.year}}</h4>
      </ion-item>
 
-     <ion-item class="item-stable item-icon-left card" href="#/app/countryChooser">
+     <ion-item class="item-light item-icon-left card" href="#/app/countryChooser">
      <i class="icon ion-earth"></i> Country
      <h4 class="balanced">{{country}}</h4>
      </ion-item>

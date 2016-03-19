@@ -1,12 +1,20 @@
 <ion-view view-title="Following">
   <ion-content>
     
-  <ion-list>
-  	<a class="item item-light item-icon-left">
-  	 <i class="icon ion-model-s"></i> 
-  	 <p>Test</p>
-  	 </a>
-  </ion-list>
+ <div class="list card" ng-repeat="vehicle in vehicles">
+      <div class="item item-avatar item-stable" ng-click="">
+        <img ng-src="img/{{vehicle.carData.make.name}}.png">
+        <h3 class="dark">{{vehicle.carData.make.name}} {{vehicle.carData.model.name}}</h3>
+        <h4 class="balanced"><i class="icon ion-ios-cloud-outline"></i> {{vehicle.id}}</h4>
+        <h5 class="dark">{{vehicle.carData.year.year}} {{vehicle.carData.categories.vehicleStyle}} - {{vehicle.carData.engine.size}}L, {{vehicle.carData.engine.horsepower}}hp</h5>
+        <h5 class="dark" style="text-transform: capitalize">{{vehicle.carData.transmission.transmissionType}}</h5>
+      </div>
+    </div>
 
   </ion-content>
+
+  <div class="bar bar-footer bar-balanced" ng-click="followVehicle()">
+	  <div class="title icon ion-ios-plus-outline"> Follow Vehicle</div>
+	</div>
+
 </ion-view>
