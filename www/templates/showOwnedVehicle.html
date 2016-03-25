@@ -1,0 +1,270 @@
+<ion-view view-title="Vehicle Information" ng-init="showOwnedVehicle()">
+  <ion-content style="background-color: #2B2C2F;">
+    
+
+<div class="list card">
+
+  <div class="item item-avatar">
+    <img ng-src="img/{{vehicle.carData.make.name}}.png">
+    <h4>{{vehicle.carData.make.name}} {{vehicle.carData.model.name}} ({{vehicle.carData.year.year}})</h4>
+    <p>{{vehicle.id}}</p>
+  </div>
+  </div>
+
+<div class="list card">
+  <a class="item item-avatar" ng-click="showVehicleInformation = !showVehicleInformation">
+    <img ng-src="img/car3.png">
+     <h4>Vehicle Information</h4>
+     <p>View Vehicle Information.</p>
+  </a>
+
+  <div id="showVehicleInformation" ng-show="showVehicleInformation">
+
+  <div class="item item-avatar" ng-show="vehicle.carData.categories.vehicleStyle != null">
+    <img ng-src="img/car.png">
+    <h4>{{vehicle.carData.categories.vehicleStyle}}</h4>
+    <p>Style</p>
+  </div>
+
+  <div class="item item-avatar" ng-show="vehicle.carData.categories.EPAClass != null">
+    <img ng-src="img/car.png">
+    <h4>{{vehicle.carData.categories.EPAClass}}</h4>
+    <p>Class</p>
+  </div>
+
+  <div class="item item-avatar" ng-show="vehicle.carData.numOfDoors != null">
+    <img ng-src="img/car.png">
+    <h4>{{vehicle.carData.numOfDoors}}</h4>
+    <p>Number of Doors</p>
+  </div>
+
+  <div class="item item-avatar" ng-show="vehicle.carData.engine.size != null">
+    <img ng-src="img/engine.png">
+    <h4>{{vehicle.carData.engine.size}}</h4>
+    <p>Engine Size</p>
+  </div>
+
+  <div class="item item-avatar" ng-show="vehicle.carData.engine.displacement != null">
+    <img ng-src="img/engine.png">
+    <h4>{{vehicle.carData.engine.displacement}} cc</h4>
+    <p>Engine Displacement</p>
+  </div>
+
+  <div class="item item-avatar" ng-show="vehicle.carData.engine.configuration != null">
+    <img ng-src="img/engine.png">
+    <h4>{{vehicle.carData.engine.configuration}}</h4>
+    <p>Engine Configuration</p>
+  </div>
+
+    <div class="item item-avatar" ng-show="vehicle.carData.engine.cylinder != null">
+    <img ng-src="img/engine.png">
+    <h4>{{vehicle.carData.engine.cylinder}}</h4>
+    <p>Cylinders</p>
+  </div>
+
+   <div class="item item-avatar" ng-show="vehicle.carData.engine.totalValves != null">
+    <img ng-src="img/engine.png">
+    <h4>{{vehicle.carData.engine.totalValves}}</h4>
+    <p>Valves</p>
+  </div>
+
+   <div class="item item-avatar" ng-show="vehicle.carData.engine.compressionRatio != null">
+    <img ng-src="img/engine.png">
+    <h4>{{vehicle.carData.engine.compressionRatio}}</h4>
+    <p>Compression Ratio</p>
+  </div>
+
+   <div class="item item-avatar" ng-show="vehicle.carData.engine.manufacturerEngineCode != null">
+    <img ng-src="img/engine.png">
+    <h4>{{vehicle.carData.engine.manufacturerEngineCode}}</h4>
+    <p>Engine Code</p>
+  </div>
+
+   <div class="item item-avatar" ng-show="vehicle.carData.engine.horsepower != null">
+    <img ng-src="img/engine.png">
+    <h4>{{vehicle.carData.engine.horsepower}} bhp</h4>
+    <p>Horsepower</p>
+  </div>
+
+   <div class="item item-avatar" ng-show="vehicle.carData.engine.torque != null">
+    <img ng-src="img/engine.png">
+    <h4>{{vehicle.carData.engine.torque}} ft lb</h4>
+    <p>Torque</p>
+  </div>
+
+  <div class="item item-avatar" ng-show="vehicle.carData.engine.fuelType != null">
+    <img ng-src="img/fuel.png">
+    <h4>{{vehicle.carData.engine.fuelType}}</h4>
+    <p>Fuel</p>
+  </div>
+
+  <div class="item item-avatar" ng-show="vehicle.carData.MPG.highway != null">
+    <img ng-src="img/fuel.png">
+    <h4>{{vehicle.carData.MPG.highway}} MPG</h4>
+    <p>MPG Motorway</p>
+  </div>
+
+  <div class="item item-avatar" ng-show="vehicle.carData.MPG.city != null">
+    <img ng-src="img/fuel.png">
+    <h4>{{vehicle.carData.MPG.city}} MPG</h4>
+    <p>MPG City</p>
+  </div>
+
+  <div class="item item-avatar" ng-show="vehicle.carData.transmission.transmissionType != null">
+    <img ng-src="img/gear.png">
+    <h4>{{vehicle.carData.transmission.transmissionType}}</h4>
+    <p>Transmission Type</p>
+  </div>
+
+  <div class="item item-avatar" ng-show="vehicle.carData.transmission.numberOfSpeeds != null">
+    <img ng-src="img/gear.png">
+    <h4>{{vehicle.carData.transmission.numberOfSpeeds}}</h4>
+    <p>Number Of Speeds</p>
+  </div>
+
+  <div class="item item-avatar" ng-show="vehicle.carData.price.baseMSRP != null">
+    <img ng-src="img/money.png">
+    <h4>$ {{vehicle.carData.price.baseMSRP}}</h4>
+    <p>New Price</p>
+  </div>
+
+   <div class="item item-avatar" ng-show="vehicle.carData.usedPrice.price.usedPrivateParty != null">
+    <img ng-src="img/money.png">
+    <h4>$ {{vehicle.carData.usedPrice.price.usedPrivateParty}}</h4>
+    <p>Used Price</p>
+  </div>
+
+</div>
+
+  </div>
+
+
+<div class="list card">
+  <a class="item item-avatar" ng-click="getVehicleStatistics(vehicle.id); showStatistics = !showStatistics;">
+    <img ng-src="img/car4.png">
+     <h4>Vehicle Statistics</h4>
+     <p>View Vehicle Statistics.</p>
+  </a>
+
+    <div id="showStatistics" ng-show="showStatistics">
+
+	   <div class="item item-avatar" ng-show="overallStatistics.averageSpeed != null">
+	    <img ng-src="img/speedometer.png">
+	    <h4>{{overallStatistics.averageSpeed}} KPH</h4>
+	    <p>Average Speed</p>
+	    </div>
+
+	    <div class="item item-avatar" ng-show="overallStatistics.topSpeed != null">
+	    <img ng-src="img/speedometer.png">
+	    <h4>{{overallStatistics.topSpeed}} KPH</h4>
+	    <p>Top Speed</p>
+	    </div>
+
+	    <div class="item item-avatar" ng-show="overallStatistics.averageRPM != null">
+	    <img ng-src="img/rpm.png">
+	    <h4>{{overallStatistics.averageRPM}} RPM</h4>
+	    <p>Top RPM</p>
+	  </div>
+
+	  <div class="item item-avatar" ng-show="overallStatistics.topRPM != null">
+	    <img ng-src="img/rpm.png">
+	    <h4>{{overallStatistics.topRPM}} RPM</h4>
+	    <p>Top RPM</p>
+	  </div>
+
+	   <div class="item item-avatar" ng-show="overallStatistics.averagePercentageHighRPM != null">
+	    <img ng-src="img/rpm.png">
+	    <h4>{{overallStatistics.averagePercentageHighRPM}} %</h4>
+	    <p>High RPM Percentage</p>
+	  </div>
+
+	   <div class="item item-avatar" ng-show="overallStatistics.averageMPG != null">
+	    <img ng-src="img/rpm.png">
+	    <h4>{{overallStatistics.averageMPG}} MPG</h4>
+	    <p>Average MPG</p>
+	  </div>
+
+	  <div class="item item-avatar" ng-show="overallStatistics.heavyAccelerationCount != null">
+	    <img ng-src="img/car4.png">
+	    <h4>{{overallStatistics.heavyAccelerationCount}} </h4>
+	    <p>Heavy Acceleration Count</p>
+	  </div>
+
+	  <div class="item item-avatar" ng-show="overallStatistics.heavyBrakingCount != null">
+	    <img ng-src="img/brake.png">
+	    <h4>{{overallStatistics.heavyBrakingCount}} </h4>
+	    <p>Heavy Braking Count</p>
+	  </div>
+
+	  <div class="item item-avatar" ng-show="overallStatistics.averageEngineLoad != null">
+	    <img ng-src="img/engine.png">
+	    <h4>{{overallStatistics.averageEngineLoad}} %</h4>
+	    <p>Average Engine Load</p>
+	  </div>
+
+	  <div class="item item-avatar" ng-show="overallStatistics.averageThrottlePosition != null">
+	    <img ng-src="img/throttle.png">
+	    <h4>{{overallStatistics.averageThrottlePosition}} %</h4>
+	    <p>Average Throttle Position</p>
+	  </div>
+
+	   <div class="item item-avatar" ng-show="overallStatistics.averagePercentageIdle != null">
+	    <img ng-src="img/idle.png">
+	    <h4>{{overallStatistics.averagePercentageIdle}} %</h4>
+	    <p>Average Percentage Idle</p>
+	  </div>
+
+	   <div class="item item-avatar" ng-show="overallStatistics.averagePercentageCoasting != null">
+	    <img ng-src="img/car3.png">
+	    <h4>{{overallStatistics.averagePercentageCoasting}} %</h4>
+	    <p>Average Percentage Coasting</p>
+	  </div>
+
+	  <div class="item item-avatar" ng-show="overallStatistics.averageGForce != null">
+	    <img ng-src="img/radar.png">
+	    <h4>{{overallStatistics.averageGForce}} g</h4>
+	    <p>Average G Force</p>
+	  </div>
+
+	   <div class="item item-avatar" ng-show="overallStatistics.topAccelerationGforce != null">
+	    <img ng-src="img/radar.png">
+	    <h4>{{overallStatistics.topAccelerationGforce}} g</h4>
+	    <p>Top Acceleration G Force</p>
+	  </div>
+
+	   <div class="item item-avatar" ng-show="overallStatistics.topDecelerationGforce != null">
+	    <img ng-src="img/radar.png">
+	    <h4>{{overallStatistics.topDecelerationGforce}} g</h4>
+	    <p>Top Deceleration G Force</p>
+	  </div>
+
+    </div>
+</div>
+
+
+<div class="list card">
+  <a class="item item-avatar" ng-click="getVehicleJourneys(vehicle.id); showJourneys = !showJourneys;">
+    <img ng-src="img/journey.png">
+    <h4>Journeys</h4>
+    <p>View {{vehicle.carData.journeys.length}} Journeys.</p>
+  </a>
+{{journey}}
+<div id="showStatistics" ng-show="showJourneys">
+<div ng-repeat="journey in journeys" ng-show="journeys != null">
+   <a class="item item-avatar" href="#/app/vehicles/showJourney/{{journey.id}}">
+	    <img ng-src="img/sun.png" ng-if="journey.startHour <= 20 && journey.startHour >= 7" style="max-width: 30px;max-height: 30px;">
+	    <img ng-src="img/moon.png" ng-if="journey.startHour >= 21 || journey.startHour <= 6" style="max-width: 30px;max-height: 30px;">
+	    <h4><i class="icon positive ion-location"></i> {{journey.startTime}}</h4>
+	    <h4><i class="icon assertive ion-location"></i> {{journey.endTime}}</h4>
+
+	  </a>
+</div>
+</div>
+
+  </div>
+
+</div>
+
+  </ion-content>
+
+</ion-view>

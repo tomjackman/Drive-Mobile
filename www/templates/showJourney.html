@@ -1,0 +1,149 @@
+<ion-view view-title="Journey Statistics" ng-init="getJourneyData()">
+  <ion-content style="background-color: #2B2C2F;">
+    
+
+    <div class="row">
+    <div class="col-50" align="center">
+    <div class="circle">
+      <div class="fill" style="height: 100%">
+      </div>
+      <h3 class="score">{{journeyData.heavyBrakingCount}}</h3>
+    </div>
+     <h6 class="light">Heavy Braking Count</h6>
+    </div>
+
+    <div class="col-50" align="center">
+    <div class="circle">
+      <div class="fill" style="height: 100%">
+      </div>
+      <h3 class="score">{{journeyData.heavyAccelerationCount}}</h3>
+    </div>
+     <h6 class="light">Heavy Acceleration Count</h6>
+    </div>
+    </div>
+
+    <div class="row">
+    <div class="col-50" align="center">
+    <div class="circle">
+      <div class="fill" style="height: 100%">
+      </div>
+      <h3 class="score">{{journeyData.averageSpeed}}</h3>
+    </div>
+     <h6 class="light">Average Speed (KPH)</h6>
+    </div>
+
+    <div class="col-50" align="center">
+    <div class="circle">
+      <div class="fill" style="height: 100%">
+      </div>
+      <h3 class="score">{{journeyData.topSpeed}}</h3>
+    </div>
+     <h6 class="light">Top Speed (KPH)</h6>
+    </div>
+    </div>
+
+    <div class="row">
+    <div class="col-50" align="center">
+    <div class="circle">
+      <div class="fill" style="height: 100%">
+      </div>
+      <h3 class="score">{{journeyData.averageRPM}}</h3>
+    </div>
+     <h6 class="light">Average RPM (RPM)</h6>
+    </div>
+
+    <div class="col-50" align="center">
+    <div class="circle">
+      <div class="fill" style="height: 100%">
+      </div>
+      <h3 class="score">{{journeyData.topRPM}}</h3>
+    </div>
+     <h6 class="light">Top RPM (RPM)</h6>
+    </div>
+    </div>
+
+    <div class="row">
+    <div class="col-50" align="center">
+    <div class="circle">
+      <div class="fill" style="height: {{journeyData.averagePercentageHighRPM}}%">
+      </div>
+      <h3 class="score">{{journeyData.averagePercentageHighRPM}}%</h3>
+    </div>
+     <h6 class="light">Average Percentage High RPM</h6>
+    </div>
+
+    <div class="col-50" align="center">
+    <div class="circle">
+      <div class="fill" style="height: {{journeyData.averagePercentageIdle}}%">
+      </div>
+      <h3 class="score">{{journeyData.averagePercentageIdle}}%</h3>
+    </div>
+     <h6 class="light">Average Percentage Idle</h6>
+    </div>
+    </div>
+
+    <div class="row">
+    <div class="col-50" align="center">
+    <div class="circle">
+      <div class="fill" style="height: {{journeyData.averageEngineLoad}}%">
+      </div>
+      <h3 class="score">{{journeyData.averageEngineLoad}}%</h3>
+    </div>
+     <h6 class="light">Average Engine Load</h6>
+    </div>
+
+    <div class="col-50" align="center">
+    <div class="circle">
+      <div class="fill" style="height: {{journeyData.averageThrottlePosition}}%">
+      </div>
+      <h3 class="score">{{journeyData.averageThrottlePosition}}%</h3>
+    </div>
+     <h6 class="light">Average Throttle Position</h6>
+    </div>
+    </div>
+
+     <div class="row">
+    <div class="col-50" align="center">
+    <div class="circle">
+      <div class="fill" style="height: {{journeyData.averagePercentageCoasting}}%">
+      </div>
+      <h3 class="score">{{journeyData.averagePercentageCoasting}}%</h3>
+    </div>
+     <h6 class="light">Average Percentage Coasting</h6>
+    </div>
+
+    <div class="col-50" align="center">
+    <div class="circle">
+      <div class="fill" style="height: 100%">
+      </div>
+      <h3 class="score">{{journeyData.averageGForce}}g</h3>
+    </div>
+     <h6 class="light">Average G Force</h6>
+    </div>
+    </div>
+
+     <div class="row">
+    <div class="col-50" align="center">
+    <div class="circle">
+      <div class="fill" style="height: 100%">
+      </div>
+      <h3 class="score">{{journeyData.topAccelerationGforce}}g</h3>
+    </div>
+     <h6 class="light">Top Acceleration G Force</h6>
+    </div>
+
+    <div class="col-50" align="center">
+    <div class="circle">
+      <div class="fill" style="height: 100%">
+      </div>
+      <h3 class="score">{{journeyData.topDecelerationGforce}}g</h3>
+    </div>
+     <h6 class="light">Top Deceleration G Force</h6>
+    </div>
+    </div>
+
+
+
+  </ion-content>
+
+</ion-view>
