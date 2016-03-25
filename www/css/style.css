@@ -16,20 +16,99 @@
     line-height: 44px;
 }
 
-.ion-content {
-    background-color: #444444;
-}
-
 .loading-container .loading {
-    padding: 15px;
+    padding: 10px;
+    border: 1px solid;
     border-radius: 50px;
-    background-color: rgb(255, 255, 255);
-    color: #0c60ee;
+    background-color: rgb(43, 44, 47);
+    color: #1AB370;
     text-align: center;
     text-overflow: ellipsis;
+    border-color: #1AB370;
     font-size: 15px;
 }
 
 body {
   cursor: url('http://ionicframework.com/img/finger.png'), auto;
+}
+
+.item p {
+font-size: 9px;
+}
+
+.item-avatar > img:first-child, .item-avatar .item-image, .item-avatar .item-content > img:first-child, .item-avatar .item-content .item-image, .item-avatar-left > img:first-child, .item-avatar-left .item-image, .item-avatar-left .item-content > img:first-child, .item-avatar-left .item-content .item-image {
+max-width: 30px;
+max-height: 30px;
+}
+
+.circle{
+  position: relative;
+  width: 100px;
+  height: 100px;
+  background: #bdc3c7;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+  overflow: hidden;  
+}
+
+.fill{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50%;
+  background: #1AB370;
+}
+
+.score{
+  position: absolute;
+  width: 100%;
+  top: 32px;
+  text-align: center;
+  font-family: Arial, sans serif;
+  color: #fff;
+  font-size: 20pt;
+  line-height: 0;
+  font-weight: normal;
+}
+
+.bar.bar-balanced {
+    border-color: #1AB370;
+    background-color: #2B2C2F;
+}
+
+.button.button-balanced {
+    border-color: #1AB370;
+    background-color: #1AB370;
+    color: #fff;
+}
+
+.button.button-balanced {
+    border-color: #1AB370;
+    background-color: #1AB370;
+    color: #fff;
+    border: 1px solid;
+    border-color: #1AB370;
+}
+
+.item {
+    border-color: #1AB370;
+    background-color: #fff;
+    }
+
+.item.item-light {
+    border-color: #1AB370;
+    background-color: #fff;
+    color: #444;
+}
+
+.bar.bar-balanced.bar-footer {
+    background-image: linear-gradient(180deg, #1AB370, #1AB370 50%, transparent 50%);
+    background-color: #1AB370;
+}
+
+.balanced.activated {
+    border-color: #D24A40;
+    background-color: #D24A40;
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);
 }
