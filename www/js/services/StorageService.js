@@ -74,7 +74,7 @@ angular.module('starter')
               // car added
                var alertPopup = $ionicPopup.alert({
                  title: 'Vehicle Added',
-                 template: '<div align="center"><img ng-src="img/car.png" height="150" width="150"></div>'
+                 template: '<div align="center"><img ng-src="img/logo-light.png" height="150" width="150"></div>'
                });
 
               }
@@ -83,7 +83,7 @@ angular.module('starter')
                 // could not add car
                 var alertPopup = $ionicPopup.alert({
                  title: 'Could Not Add Vehicle',
-                 template: '<div align="center"><img ng-src="img/car2.png" height="150" width="150"></div>'
+                 template: '<div align="center"><img ng-src="img/logo-light.png" height="150" width="150"></div>'
                });
 
               }
@@ -93,7 +93,7 @@ angular.module('starter')
               function() {
                   var alertPopup = $ionicPopup.alert({
                  title: 'Could Not Contact Server',
-                 template: '<div align="center"><img ng-src="img/cloud.png" height="150" width="150"></div>'
+                 template: '<div align="center"><img ng-src="img/logo-light.png" height="150" width="150"></div>'
                });
               }
             );
@@ -120,7 +120,7 @@ angular.module('starter')
               // journey added
               var alertPopup = $ionicPopup.alert({
                  title: 'Journey Added',
-                 template: '<div align="center"><img ng-src="img/journey.png" height="150" width="150"></div>'
+                 template: '<div align="center"><img ng-src="img/logo-light.png" height="150" width="150"></div>'
                });
 
               }
@@ -129,7 +129,7 @@ angular.module('starter')
                 // Cannot add journey
                 var alertPopup = $ionicPopup.alert({
                  title: 'Could Not Add Journey',
-                 template: '<div align="center"><img ng-src="img/journey2.png" height="150" width="150"></div>'
+                 template: '<div align="center"><img ng-src="img/logo-light.png" height="150" width="150"></div>'
                });
               }
 
@@ -138,7 +138,7 @@ angular.module('starter')
               function() {
                   var alertPopup = $ionicPopup.alert({
                  title: 'Could Not Contact Server',
-                 template: '<div align="center"><img ng-src="img/cloud.png" height="150" width="150"></div>'
+                 template: '<div align="center"><img ng-src="img/logo-light.png" height="150" width="150"></div>'
                });
               }
 
@@ -156,6 +156,36 @@ angular.module('starter')
                       disableBack: true
                     });
 
+      },
+
+    /**
+     * This method retrieves the vehicle information for a followed vehicle
+     */
+      getFollowedVehicle: function(vehicleIdentifier){
+        var vehicles = localStorage.getItem('followingList');
+        vehicles = JSON.parse(vehicles);
+
+        for (var i = 0; i < vehicles.length; i++) {
+          if(vehicles[i].carData.identifier === vehicleIdentifier)
+          {
+            return vehicles[i];
+          }
+        }
+      },
+
+      /**
+     * This method retrieves the vehicle information for an owned vehicle
+     */
+      getOwnedVehicle: function(vehicleIdentifier){
+        var vehicles = localStorage.getItem('vehicleList');
+        vehicles = JSON.parse(vehicles);
+
+        for (var i = 0; i < vehicles.length; i++) {
+          if(vehicles[i].id === vehicleIdentifier)
+          {
+            return vehicles[i];
+          }
+        }
       },
 
       /**

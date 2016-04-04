@@ -177,34 +177,34 @@ $rootScope.checkDisplay = function()
        $timeout(function()
        {
           $cordovaBluetoothSerial.write("ATAT2\r");
-       },100);
+       },500);
 
       // Turn off line feeds
        $timeout(function()
        {
           $cordovaBluetoothSerial.write("ATL0\r");
-       },250);
+       },1000);
 
        // Turn off spaces
        $timeout(function()
        {
           $cordovaBluetoothSerial.write("ATS0\r");
-       },350);
+       },1500);
 
       // Write to OBD Device - Initial Search Phase
       $timeout(function()
        {
          $cordovaBluetoothSerial.write("010C1\r");
-       },450);
+       },2000);
+
+      // Bluetooth buffer read loop - read responses from the vehicle every 70ms
+      $scope.readLoop = $interval(function() {
+         $scope.bluetoothRead();
+      }, 100);    
 
       $timeout(function()
         {
-            // Bluetooth buffer read loop - read responses from the vehicle every 70ms
-            $scope.readLoop = $interval(function() {
-               $scope.bluetoothRead();
-            }, 50);
-
-            // 9 Sensors to be Queried Every 9 seconds
+            // 9 Sensors to be Queried Every 60 seconds
             $scope.slotOneSensors = ["010A1\r", // Fuel Pressure
                                       "010B1\r", // Intake Manifold Absolute Pressure
                                       "01101\r", // MAF Air Flow Rate
@@ -216,7 +216,7 @@ $rootScope.checkDisplay = function()
                                       "015D1\r"] // Fuel Injection Timing
             $scope.slotOneCount = 0                                 
 
-            // 8 Sensors to be Queried Every 8 seconds
+            // 8 Sensors to be Queried Every 60 seconds
             $scope.slotTwoSensors = ["01051\r", // Engine Coolant Temperature
                                       "010F1\r", // Intake Air Temperature
                                       "013C1\r", // Catalyst Temperature, Bank 1, Sensor 1
@@ -228,10 +228,10 @@ $rootScope.checkDisplay = function()
 
             $scope.slotTwoCount = 0
 
-            // 4 Sensors to be Queried Every 4 seconds
+            // 4 Sensors to be Queried Every 60 seconds
             $scope.slotThreeSensors = ["01611\r", // Drivers Demand Engine Torque
                                        "01621\r", // Actual Engine Torque
-                                       "01631\r", // Engine Refeence Torque
+                                       "01631\r", // Engine Reference Torque
                                        "015E1\r"] // Engine Fuel Rate
 
             $scope.slotThreeCount = 0
@@ -271,20 +271,29 @@ $rootScope.checkDisplay = function()
                 $scope.bluetoothWrite("01111\r"); // Throttle Position
               },500);
 
-              $timeout(function()
+              if($scope.slotOneCount % 9 === 0)
               {
-                $scope.bluetoothWrite($scope.slotOneSensors[$scope.slotOneCount]); // Slot 1
-              },600);
+                $timeout(function()
+                {
+                  $scope.bluetoothWrite($scope.slotOneSensors[$scope.slotOneCount/9]); // Slot 1
+                },600);
+              }
 
-              $timeout(function()
+              if($scope.slotOneCount % 8 === 0)
               {
-                $scope.bluetoothWrite($scope.slotTwoSensors[$scope.slotTwoCount]); // Slot 2
-              },700);
+                $timeout(function()
+                {
+                  $scope.bluetoothWrite($scope.slotTwoSensors[$scope.slotTwoCount/8]); // Slot 2
+                },700);
+              }
 
-              $timeout(function()
+              if($scope.slotOneCount % 15 === 0)
               {
-                $scope.bluetoothWrite($scope.slotThreeSensors[$scope.slotThreeCount]); // Slot 3
-              },800);
+                $timeout(function()
+                {
+                  $scope.bluetoothWrite($scope.slotThreeSensors[$scope.slotThreeCount/15]); // Slot 3
+                },800);
+              }
 
               if($scope.slotFourCount === 0)
               {
@@ -296,7 +305,7 @@ $rootScope.checkDisplay = function()
 
 
 
-              if($scope.slotOneCount === 8) // If at end of Slot 1 Sensor Array
+              if($scope.slotOneCount === 72) // If at end of Slot 1 Sensor Array
               {
                   $scope.slotOneCount = 0 // Go back to first sensor in the list
               }
@@ -305,7 +314,7 @@ $rootScope.checkDisplay = function()
                 $scope.slotOneCount++
               }
 
-              if($scope.slotTwoCount === 7) // If at end of Slot 2 Sensor Array
+              if($scope.slotTwoCount === 64) // If at end of Slot 2 Sensor Array
               {
                   $scope.slotTwoCount = 0 // Go back to first sensor in the list
               }
@@ -314,7 +323,7 @@ $rootScope.checkDisplay = function()
                 $scope.slotTwoCount++
               }
 
-              if($scope.slotThreeCount === 3) // If at end of Slot 3 Sensor Array
+              if($scope.slotThreeCount === 45) // If at end of Slot 3 Sensor Array
               {
                   $scope.slotThreeCount = 0 // Go back to first sensor in the list
               }

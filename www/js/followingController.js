@@ -4,12 +4,16 @@ angular.module('starter')
 
 	$scope.vehicles = JSON.parse(localStorage.getItem('followingList'));
 
+
+/**
+ * Method that adds a new follow based on vehicle ID obtained using the barcode scanner.
+ */
 	$scope.followVehicle = function(){
 
       $cordovaBarcodeScanner.scan().then(
           function (vehicleID) {
              
-          	$http.get(localStorage.getItem('serverAddress') + '/Drive/vehicle/show/' + vehicleID.text + '.json').success(function(data) {
+          	$http.post(localStorage.getItem('serverAddress') + '/Drive/api/getVehicleInfo/' + vehicleID.text).success(function(data) {
 
 	        
 	      	  var followingList = localStorage.getItem('followingList');
