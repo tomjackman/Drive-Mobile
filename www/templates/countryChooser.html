@@ -1,12 +1,12 @@
 <ion-view view-title="Country">
-  <ion-content>
+  <ion-content style="background-color: #2B2C2F;">
 
 	  <label class="item item-input">
 	    <input type="text" ng-model="searchForCountry" placeholder="Search">
 	  </label>
 
        <ion-list>
-         <ion-radio ng-repeat="country in countries | filter : searchForCountry" ng-click="saveCountry(country)"> {{country}}
+         <ion-radio class="list card" ng-repeat="country in countries | filter : searchForCountry" ng-click="saveCountry(country)"> {{country}}
 	    </ion-radio>
     </ion-list>
 

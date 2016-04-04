@@ -1,5 +1,5 @@
 <ion-view view-title="Chosen Vehicle" cache-view="false">
-  <ion-content ng-init="getFinalVehicle()">
+  <ion-content ng-init="getFinalVehicle()" style="background-color: #2B2C2F;">
 
    	<div class="list card">
 
@@ -30,9 +30,12 @@
 		    </ion-item>
     	</ion-list>
 
-	  <div class="button button-balanced button-full" ng-click="addNewVehicle()">Finish</div>
-
 	</div>
-
   </ion-content>
+
+<div class="bar bar-footer bar-balanced" ng-click="addNewVehicle()">
+    <div class="title icon ion-android-done"> Finish</div>
+  </div>
+
+  
 </ion-view>

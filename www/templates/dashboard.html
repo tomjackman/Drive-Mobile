@@ -1,19 +1,19 @@
-<ion-view view-title=" <img src='img/logo-white-small.png' height='30px' style='margin-top:5px'>">
-  <ion-content style="background-color: #1b1c1d">
+<ion-view view-title="Dashboard">
+  <ion-content style="background-color: #2B2C2F">
 
 <div ng-if="show === true">
     <ion-item class="item-thumbnail-left item-light">
      <img ng-src="img/{{vehicle.carData.make.name}}.png">
       <h3 class="dark">{{vehicle.carData.make.name}} {{vehicle.carData.model.name}}</h3>
-      <h5 class="dark">{{vehicle.carData.year.year}} {{vehicle.carData.categories.vehicleStyle}}</h5>
-      <h5 class="dark">{{vehicle.carData.engine.size}}L, {{vehicle.carData.engine.horsepower}}hp</h5>
-      <h4 class="dark"><i class="icon ion-ios-cloud-outline"></i> {{vehicle.id}}</h4>
+      <h4 class="dark">{{vehicle.carData.year.year}} {{vehicle.carData.categories.vehicleStyle}}</h5>
+      <h4 class="dark">{{vehicle.carData.engine.size}}L, {{vehicle.carData.engine.horsepower}}hp</h5>
+      <h3 class="dark" style="color : #1AB370"><i class="icon ion-ios-cloud-outline"></i> {{vehicle.id}}</h4>
     </ion-item>
 </div>
 
-    <a href="#/app/vehicles" class="button button-balanced button-full icon ion-ios-refresh-empty"> Switch Vehicle</a>
+    <a href="#/app/vehicles" class="button button-balanced button-full"> Your Vehicles</a>
 
-<div class="hue" style="background: linear-gradient(180deg, #3367d6, #0A9DC7)";>
+<div class="hue" style="background: linear-gradient(180deg, #2B2C2F)";>
 
 
 <div ng-show="!recording">

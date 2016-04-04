@@ -1,13 +1,13 @@
 <ion-view view-title="Garage" cache-view="false">
-  <ion-content style="background: linear-gradient(180deg, #3367d6, #0A9DC7)">
+  <ion-content style="background-color: #2B2C2F;">
 
     <div class="list card" ng-repeat="vehicle in vehicles">
-      <div class="item item-avatar item-light" ng-click="setActive(vehicle.carData.make.name, vehicle.carData.model.name, vehicle.carData.year.year, vehicle.id)">
+      <a class="item item-avatar item-light" href="#/app/vehicles/showOwnedVehicle/{{vehicle.id}}">
         <img ng-src="img/{{vehicle.carData.make.name}}.png">
         <h3 class="dark">{{vehicle.carData.make.name}} {{vehicle.carData.model.name}}</h3>
         <h4 class="balanced"><i class="icon ion-ios-cloud-outline"></i> {{vehicle.id}}</h4>
-        <h5 class="dark">{{vehicle.carData.year.year}} {{vehicle.carData.categories.vehicleStyle}} - {{vehicle.carData.engine.size}}L, {{vehicle.carData.engine.horsepower}}hp</h5>
-      </div>
+        <h5 class="dark">{{vehicle.carData.year.year}} {{vehicle.carData.categories.vehicleStyle}} - {{vehicle.carData.engine.size}}L, {{vehicle.carData.engine.horsepower}} bhp</h5>
+      </a>
     </div>
 
   </ion-content>
