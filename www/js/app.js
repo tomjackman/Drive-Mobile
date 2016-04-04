@@ -25,6 +25,7 @@ var starter = angular.module('starter', ['ionic','ngCordova', 'ionic-datepicker'
    // Keep screen on
     window.plugins.insomnia.keepAwake()
 
+    // Setu local data structures on inital app start
     if(localStorage.getItem('setup_complete') === null)
     {
       localStorage.setItem('serverAddress', "http://192.168.43.180:8080");
@@ -52,6 +53,8 @@ var starter = angular.module('starter', ['ionic','ngCordova', 'ionic-datepicker'
 
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider) {
+
+  // http configuration
 
   $ionicConfigProvider.navBar.alignTitle('center'); // align all navbar text to center
   $httpProvider.defaults.headers.common = {};
@@ -194,8 +197,37 @@ var starter = angular.module('starter', ['ionic','ngCordova', 'ionic-datepicker'
           controller: 'vehiclesController'
         }
       }
-    });
+    })
 
+    .state('app.showVehicle', {
+      url: '/vehicles/:vehicleID',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/showVehicle.html',
+          controller: 'vehiclesController'
+        }
+      }
+    })
+
+    .state('app.showOwnedVehicle', {
+      url: '/vehicles/showOwnedVehicle/:ownedVehicleID',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/showOwnedVehicle.html',
+          controller: 'vehiclesController'
+        }
+      }
+    })
+
+    .state('app.showJourney', {
+      url: '/vehicles/showJourney/:journeyID',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/showJourney.html',
+          controller: 'vehiclesController'
+        }
+      }
+    });
     
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/dashboard');
