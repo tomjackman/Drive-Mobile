@@ -1,4 +1,4 @@
-<ion-view view-title="Country">
+<ion-view view-title="Choose Country">
   <ion-content style="background-color: #2B2C2F;">
 
 	  <label class="item item-input">
@@ -6,13 +6,13 @@
 	  </label>
 
        <ion-list>
-         <ion-radio class="list card" ng-repeat="country in countries | filter : searchForCountry" ng-click="saveCountry(country)"> {{country}}
+         <ion-radio class="list card" id="selectCountry" ng-repeat="country in countries | filter : searchForCountry" ng-click="saveCountry(country)"> {{country}}
 	    </ion-radio>
     </ion-list>
 
   </ion-content>
 
-    <div class="bar bar-footer bar-balanced" ng-click="next()">
+    <div class="bar bar-footer bar-balanced" id="submitCountry" ng-click="next()">
     <div class="title icon ion-android-done"> {{buttonText}}</div>
   </div>
 
