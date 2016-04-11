@@ -64,7 +64,7 @@ describe('Setup Wizard', function() {
 
     // Complete Setup / Add Vehicle
     expect(browser.getTitle()).toBe('Chosen Vehicle');
-    element(by.id('submitDateOfBirth')).click();
+    element(by.id('submitVehicle')).click();
 
    
   });
