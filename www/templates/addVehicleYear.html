@@ -5,7 +5,7 @@
         <input type="text" ng-model="searchYear" placeholder="Search">
       </label>
        <ion-list>
-         <ion-radio ng-repeat="year in years | filter : searchYear" ng-click="chooseYear(year.year)"> {{year.year}}
+         <ion-radio ng-repeat="year in years | filter : searchYear" id="selectYear" ng-click="chooseYear(year.year)"> {{year.year}}
         </ion-radio>
     </ion-list>
 

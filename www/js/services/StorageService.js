@@ -47,7 +47,7 @@ angular.module('starter')
             var country = localStorage.getItem('country');
 
             // REST call to add a new vehicle + driver
-            $http.post(localStorage.getItem('serverAddress') + '/Drive/api/addNewVehicle', { dateOfBirth: dateOfBirth, gender: gender, country: country, carData: carData}, {
+            $http.post(localStorage.getItem('serverAddress') + '/Drive/api/addNewVehicle', {dateOfBirth: dateOfBirth, gender: gender, country: country, carData: carData}, {
             ignoreAuthModule: true}).success(function(data) {
               // Saved to the cloud successfully
               if(data.status.name === "CREATED")
@@ -74,7 +74,7 @@ angular.module('starter')
               // car added
                var alertPopup = $ionicPopup.alert({
                  title: 'Vehicle Added',
-                 template: '<div align="center"><img ng-src="img/logo-light.png" height="150" width="150"></div>'
+                 template: '<div align="center"><img ng-src="img/logo-dark.png" height="150" width="150"></div>'
                });
 
               }
@@ -83,7 +83,7 @@ angular.module('starter')
                 // could not add car
                 var alertPopup = $ionicPopup.alert({
                  title: 'Could Not Add Vehicle',
-                 template: '<div align="center"><img ng-src="img/logo-light.png" height="150" width="150"></div>'
+                 template: '<div align="center"><img ng-src="img/logo-dark.png" height="150" width="150"></div>'
                });
 
               }
@@ -93,7 +93,7 @@ angular.module('starter')
               function() {
                   var alertPopup = $ionicPopup.alert({
                  title: 'Could Not Contact Server',
-                 template: '<div align="center"><img ng-src="img/logo-light.png" height="150" width="150"></div>'
+                 template: '<div align="center"><img ng-src="img/logo-dark.png" height="150" width="150"></div>'
                });
               }
             );
@@ -120,7 +120,7 @@ angular.module('starter')
               // journey added
               var alertPopup = $ionicPopup.alert({
                  title: 'Journey Added',
-                 template: '<div align="center"><img ng-src="img/logo-light.png" height="150" width="150"></div>'
+                 template: '<div align="center"><img ng-src="img/logo-dark.png" height="150" width="150"></div>'
                });
 
               }
@@ -129,7 +129,7 @@ angular.module('starter')
                 // Cannot add journey
                 var alertPopup = $ionicPopup.alert({
                  title: 'Could Not Add Journey',
-                 template: '<div align="center"><img ng-src="img/logo-light.png" height="150" width="150"></div>'
+                 template: '<div align="center"><img ng-src="img/logo-dark.png" height="150" width="150"></div>'
                });
               }
 
@@ -138,7 +138,7 @@ angular.module('starter')
               function() {
                   var alertPopup = $ionicPopup.alert({
                  title: 'Could Not Contact Server',
-                 template: '<div align="center"><img ng-src="img/logo-light.png" height="150" width="150"></div>'
+                 template: '<div align="center"><img ng-src="img/logo-dark.png" height="150" width="150"></div>'
                });
               }
 

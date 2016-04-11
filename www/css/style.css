@@ -112,3 +112,7 @@ max-height: 30px;
     background-color: #D24A40;
     box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);
 }
+
+.popup-container .popup {
+    background-color: rgb(43, 40, 40);
+}

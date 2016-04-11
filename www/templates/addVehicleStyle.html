@@ -5,7 +5,7 @@
         <input type="text" ng-model="searchStyle" placeholder="Search">
       </label>
        <ion-list>
-         <ion-radio ng-repeat="style in styles | filter : searchStyle" ng-click="chooseStyle(style.name, style.id, style)"> {{style.name}}
+         <ion-radio ng-repeat="style in styles | filter : searchStyle" id="selectStyle" ng-click="chooseStyle(style.name, style.id, style)"> {{style.name}}
          <p>{{style.engine.size}}L, {{style.engine.horsepower}}HP, {{style.engine.torque}} ft lb </p>
          <p>{{style.transmission.numberOfSpeeds}} Speed, {{style.transmission.transmissionType}}</p>
         </ion-radio>
