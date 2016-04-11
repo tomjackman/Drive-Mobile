@@ -92,7 +92,7 @@ var starter = angular.module('starter', ['ionic','ngCordova', 'ionic-datepicker'
     })
 
     .state('app.obdConnection', {
-      url: '/obdConnction',
+      url: '/obdConnection',
       views: {
         'menuContent': {
           templateUrl: 'templates/obdConnection.html',
