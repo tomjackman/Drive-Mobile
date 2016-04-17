@@ -116,3 +116,7 @@ max-height: 30px;
 .popup-container .popup {
     background-color: rgb(43, 40, 40);
 }
+
+.popup-title {
+color: white;
+}
