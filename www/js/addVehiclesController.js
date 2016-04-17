@@ -96,40 +96,42 @@ $scope.chosenManufacturer = "";
 
   /**
    * This method will store the car manufacturer and go to the model selection view
+   * @param make - the make of the vehicle
    */
   $scope.chooseManufacturer = function(make)
   {
-
     localStorage.setItem('chosenManufacturer', make);
     $state.go('app.addVehicleModel');
   }
 
   /**
    * This method will store the car model and go to the year selection view
+   * @param model - the model of the vehicle
    */
   $scope.chooseModel = function(model)
   {
-
     localStorage.setItem('chosenModel', model);
     $state.go('app.addVehicleYear');
   }
 
   /**
    * This method will store the car year and go to the style selection view
+   * @param year - the year of the vehicle
    */
    $scope.chooseYear = function(year)
   {
-
     localStorage.setItem('chosenYear', year);
     $state.go('app.addVehicleStyle');
   }
 
   /**
    * This method will store the car style and go to the final car view
+   * @param style - the style of the vehicle
+   * @param id - the id of the style of the vehicle
+   * @param carData - the data for the vehicle
    */
   $scope.chooseStyle = function(style, id, carData)
   {
-
     localStorage.setItem('chosenStyle', style);
     localStorage.setItem('chosenStyleId', id);
     localStorage.setItem('fullCarData', JSON.stringify(carData));
@@ -141,7 +143,6 @@ $scope.chosenManufacturer = "";
    */
   $scope.addNewVehicle = function()
   {	
-
     var carData = JSON.parse(localStorage.getItem('fullCarData'));
 
   	StorageService.addVehicle(carData);

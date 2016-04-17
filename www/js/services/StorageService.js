@@ -17,6 +17,7 @@ angular.module('starter')
 
     /**
      * This method will save the gender
+     * @param gender - the gender of the user
      */
       saveGender: function(gender){
         localStorage.setItem('gender', gender);
@@ -24,6 +25,7 @@ angular.module('starter')
 
     /**
      * This method will save the birth year details
+     * @param date - the date of birth of the user
      */
       saveDateOfBirth: function(date){
         localStorage.setItem('dateOfBirth', JSON.stringify(date));
@@ -31,6 +33,7 @@ angular.module('starter')
 
       /**
      * This method will save the country details
+     * @param country - the country where the user lives
      */
       saveCountry: function(country){
         localStorage.setItem('country', country);
@@ -39,6 +42,7 @@ angular.module('starter')
     /**
      * This method sends the vehicle and driver data to the cloud, requests unique identifier from the cloud.
      * The vehicle is saved locally with the unique id from the cloud.
+     * @param carData - the data for the chosen vehicle
      */
       addVehicle: function(carData){
 
@@ -74,7 +78,8 @@ angular.module('starter')
               // car added
                var alertPopup = $ionicPopup.alert({
                  title: 'Vehicle Added',
-                 template: '<div align="center"><img ng-src="img/logo-dark.png" height="150" width="150"></div>'
+                 template: '<div align="center"><img ng-src="img/logo-dark.png" height="150" width="150"></div>',
+                 okType: 'button-balanced'
                });
 
               }
@@ -83,7 +88,8 @@ angular.module('starter')
                 // could not add car
                 var alertPopup = $ionicPopup.alert({
                  title: 'Could Not Add Vehicle',
-                 template: '<div align="center"><img ng-src="img/logo-dark.png" height="150" width="150"></div>'
+                 template: '<div align="center"><img ng-src="img/logo-dark.png" height="150" width="150"></div>',
+                 okType: 'button-balanced'
                });
 
               }
@@ -93,7 +99,8 @@ angular.module('starter')
               function() {
                   var alertPopup = $ionicPopup.alert({
                  title: 'Could Not Contact Server',
-                 template: '<div align="center"><img ng-src="img/logo-dark.png" height="150" width="150"></div>'
+                 template: '<div align="center"><img ng-src="img/logo-dark.png" height="150" width="150"></div>',
+                 okType: 'button-balanced'
                });
               }
             );
@@ -120,7 +127,8 @@ angular.module('starter')
               // journey added
               var alertPopup = $ionicPopup.alert({
                  title: 'Journey Added',
-                 template: '<div align="center"><img ng-src="img/logo-dark.png" height="150" width="150"></div>'
+                 template: '<div align="center"><img ng-src="img/logo-dark.png" height="150" width="150"></div>',
+                 okType: 'button-balanced'
                });
 
               }
@@ -129,7 +137,8 @@ angular.module('starter')
                 // Cannot add journey
                 var alertPopup = $ionicPopup.alert({
                  title: 'Could Not Add Journey',
-                 template: '<div align="center"><img ng-src="img/logo-dark.png" height="150" width="150"></div>'
+                 template: '<div align="center"><img ng-src="img/logo-dark.png" height="150" width="150"></div>',
+                 okType: 'button-balanced'
                });
               }
 
@@ -138,7 +147,8 @@ angular.module('starter')
               function() {
                   var alertPopup = $ionicPopup.alert({
                  title: 'Could Not Contact Server',
-                 template: '<div align="center"><img ng-src="img/logo-dark.png" height="150" width="150"></div>'
+                 template: '<div align="center"><img ng-src="img/logo-dark.png" height="150" width="150"></div>',
+                 okType: 'button-balanced'
                });
               }
 
@@ -160,6 +170,7 @@ angular.module('starter')
 
     /**
      * This method retrieves the vehicle information for a followed vehicle
+     * @param vehicleIdentifier - the identifier of the vehicle
      */
       getFollowedVehicle: function(vehicleIdentifier){
         var vehicles = localStorage.getItem('followingList');
@@ -175,6 +186,7 @@ angular.module('starter')
 
       /**
      * This method retrieves the vehicle information for an owned vehicle
+     * @param vehicleIdentifier - the identifier of the vehicle
      */
       getOwnedVehicle: function(vehicleIdentifier){
         var vehicles = localStorage.getItem('vehicleList');

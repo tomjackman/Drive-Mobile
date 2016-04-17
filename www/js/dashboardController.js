@@ -8,6 +8,7 @@ angular.module('starter')
 
 $scope.status = "Tap to Start Journey";
 $scope.recording = false;
+$scope.dtc = false;
 $scope.sensorData = [];
 
 /**
@@ -71,7 +72,16 @@ $rootScope.checkDisplay = function()
             if(data.charAt(0) === '4')  
             {
              $scope.sensorData.push(data);
+                if(data.charAt(1) === '3') // Diagnostic Trouble Code
+                {
+                    $scope.dtc = true;
+                }
             }
+            else if(data === "STOPPED") // Experiencing Querying Difficulties
+            {
+                $cordovaToast.show('Experiencing Querying Difficulties', 'short', 'center');
+            }
+
           },
           function() {
               return false;
@@ -134,6 +144,16 @@ $rootScope.checkDisplay = function()
                   $cordovaToast.show('Cannot connect to the OBD-II device. Either the vehicle is not turned on or the device is out of range', 'long', 'center');
               }
           );
+  }
+
+   /**
+   * Disable the Vehicles Engine Light
+   */
+
+  $scope.disableDTC = function()
+  {
+    $cordovaBluetoothSerial.write("04\r");
+    $scope.dtc = false;
   }
 
 

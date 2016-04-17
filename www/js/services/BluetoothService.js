@@ -36,6 +36,7 @@ angular.module('starter')
     /*
     * Write data to the Bluetooth Device
     * The data to write to the bluetooth buffer.
+    * @param data - the data to write to the bluetooth buffer
     */
     write: function(data){
         $cordovaBluetoothSerial.write(data).then(
@@ -118,6 +119,7 @@ angular.module('starter')
 
     /*
     * Write data from the serial port
+    
     */
     available: function(){
       $cordovaBluetoothSerial.available(function (numBytes) {

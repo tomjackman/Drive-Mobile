@@ -17,15 +17,10 @@ var starter = angular.module('starter', ['ionic','ngCordova', 'ionic-datepicker'
     BluetoothService.disconnectFromDevice(); // disconnect if connected, can cause listing of devices issues
    // BluetoothService.enableBluetooth();
 
-   // if(localStorage.getItem('mac_address') !== null)
-   // {
-   //   BluetoothService.connectToDevice(localStorage.getItem('mac_address'));
-   // }
-
    // Keep screen on
     window.plugins.insomnia.keepAwake()
 
-    // Setu local data structures on inital app start
+    // Setup local data structures on inital app start
     if(localStorage.getItem('setup_complete') === null)
     {
       localStorage.setItem('serverAddress', "http://192.168.43.180:8080");
